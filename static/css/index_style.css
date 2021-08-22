@@ -1,0 +1,525 @@
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@300&display=swap');
+
+:root {
+    --body-bg: white;
+    --post-bg: white;
+    --cards_bg: white;
+    --text: black;
+
+    --nav-bg: brown;
+    --logo-color: white;
+    --nav_text-color: white;
+    --button_selected-color: white;
+    --button_selected_text-color: black;
+    --checkbtn-color: white;
+    --modais-bg: rgba(0, 0, 0, .5);
+    --feed_border-color: #ced2d6;
+    --feed_post_hover-bg: #e6e6e6;
+    --feed_post_informations-color: #888888;
+    --feed_post_reactions-color: lightgray;
+    --cards_icon-color: lightgray;
+    --cards_icon_hover-color: brown;
+    --input_border-color: lightgrey;
+    --link_color: brown;
+    --grad_a: brown;
+    --grad_b: #000;
+    --art_cards_box_shadow-color: rgb(0 0 0 / 12%);
+}
+
+.dark-mode:root {
+    --body-bg: black;
+    --post-bg: black;
+    --feed_post_hover-bg: black;
+    --cards_bg: black;
+    --text: white;
+
+    --grad_b: brown;
+    --art_cards_box_shadow-color: #827d7d;
+    --link_color: brown;
+    --modais-bg: rgba(0, 0, 0, .8);
+}
+
+* {
+    padding: 0;
+    margin: 0;
+    text-decoration: none;
+    list-style: none;
+    box-sizing: border-box;
+    font-family: 'Ubuntu', sans-serif;
+}
+
+body {
+    font-family: montserrat;
+    background-color: var(--body-bg);
+}
+
+/*HEADER*/
+
+nav {
+    align-items: center;
+    background-color: var(--nav-bg);
+    height: 80px;
+    width: 100%;
+}
+
+label.logo{
+    color: var(--logo-color);
+    font-size: 35px;
+    line-height: 80px;
+    padding: 0 100px;
+    font-weight: bold;
+}
+
+nav ul {
+    float: right;
+    margin-right: 20px;
+}
+
+nav ul i {
+    cursor: pointer;
+    margin-right: 5px;
+}
+
+nav ul li{
+    display: inline-block;
+    line-height: 80px;
+    padding: 7px 13px;
+    border-radius: 3px;
+    margin: 0 5px;
+}
+
+nav ul li a {
+    color: var(--nav_text-color);
+    font-size: 20px;
+
+}
+
+.selected {
+    color: var(--button_selected_text-color);
+    font-size: 17px;
+    background: var(--button_selected-color);
+    border-radius: 10px;
+    padding: 10px 25px 10px 25px;
+}
+
+a.active,a:hover {
+    transition: .5s;
+}
+
+.checkbtn {
+    font-size: 30px;
+    color: var(--checkbtn-color);
+    float: right;
+    line-height: 80px;
+    margin-right: 40px;
+    cursor: pointer;
+    display: none;
+}
+
+#check {
+    display: none;
+}
+
+/*MOBILE*/
+
+@media (max-width: 952px){
+    label.logo{
+        font-size: 30px;
+        padding-left: 50px;
+    }
+    nav ul li a{
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 858px){
+    .checkbtn{
+        display: block;
+    }
+    ul {
+        position: fixed;
+        width: 100%;
+        height: 100vh;
+        background: var(--modais-bg);
+        top: 80px;
+        left: -100%;
+        text-align: center;
+        transition: all .5s;
+    }
+    nav ul li{
+        display: block;
+        margin: 50px 0;
+        line-height: 30px;
+    }
+    nav ul li a{
+        background: none;
+        color: white;
+        font-size: 20px;
+    }
+    nav ul li a#btn_cadastro {
+        background: none;
+        color: white;
+        font-size: 20px;
+    }
+    a:hover,a.active{
+        background: none;
+        /*color: #0082e6;*/
+
+    }
+    #check:checked ~ ul{
+        left: 0;
+    }
+}
+
+/*MAIN*/
+
+main {
+    margin-right: 5%;
+    margin-left: 5%;
+    margin-top: 5%;
+    display: grid;
+    gap: 20px;
+    grid-template-columns: 1fr 2fr 1fr;
+}
+
+main #art{
+    /*background-color: cadetblue;*/
+}
+
+main #feed{
+    /*background-color: crimson;*/
+}
+
+main #form{
+    /*background-color: darkolivegreen;*/
+}
+
+/*FEED*/
+
+#feed {
+    display: flex;
+    flex-direction: column;
+    /*background-color: darkorange;*/
+    border-style: solid;
+    border-width: 1px;
+    border-color: var(--feed_border-color);
+}
+
+.post {
+    background-color: var(--post-bg);
+    display: flex;
+    padding: 10px;
+    /*background-color: darkviolet;*/
+    border-bottom: 1px solid var(--feed_border-color);
+}
+
+.post:hover{
+    background-color: var(--feed_post_hover-bg);
+    transition: all ease .5s;
+}
+
+.post_body {
+    display: flex;
+    flex-direction: column;
+    padding-left: 6px;
+}
+
+.post_information{
+    display: flex;
+    /*background-color: goldenrod;*/
+}
+
+.name_colaborador{
+    color: var(--text);
+    font-weight: 1000;
+}
+
+.localization, .category {
+    padding-left: 8px;
+    font-size: 15px;
+    color: var(--feed_post_informations-color);
+}
+
+.post_content {
+    display: block;
+    padding-top: 3px;
+    /*padding-left: 6px;*/
+}
+
+.post_content span {
+    color: var(--text);
+}
+
+.post_media{
+    margin-top: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    max-width: 100%;
+}
+
+.post_media img{
+    object-fit: cover;
+    width: 200px;
+    height: 200px;
+    border-radius: 10%;
+    padding-right: 4px;
+    padding-bottom: 4px;
+}
+
+.post__reactions{
+    margin-top: 30px;
+    display: flex;
+    justify-content: flex-end;
+    color: var(--feed_post_reactions-color);
+    justify-content: space-between;
+}
+
+.profile_photo {
+    width: 48px;
+    height: 48px;
+    border-radius: 9999px;
+}
+
+/*CARD*/
+
+#art__cards{
+    background-color: var(--cards_bg);
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 10px;
+    margin-top: -4px;
+    box-shadow: 0 4px 12px var(--art_cards_box_shadow-color);
+}
+
+#art__cards #text{
+    color: var(--text);
+    font-size: 25px;
+    font-weight: 600;
+    text-align: center;
+    margin-top: 10px;
+    margin-bottom: 35px;
+}
+
+#cards{
+    min-width: 250px;
+    max-width: 100%;
+    display: grid;
+    grid-template-columns: repeat(auto-fit,minmax(80px,120px));
+    gap: 5px;
+}
+
+.card {
+    margin: auto;
+    width: 80px;
+    height: 80px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 45px;
+}
+
+.card span {
+    color: var(--text);
+    font-size: 14px;
+}
+
+.card i {
+    color: var(--cards_icon-color);
+}
+
+.card:hover i{
+    transition: all ease .5s;
+    color: var(--cards_icon_hover-color);
+}
+
+.card span {
+    text-align: center;
+    font-weight: 1000;
+}
+
+/*FORMS*/
+
+#form__content_login {
+    /*background-color: chartreuse;*/
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 300px;
+    width: 100%;
+}
+
+#form__content_login h1 {
+    color: var(--text);
+    font-size: 30px;
+}
+
+#form__content_login form {
+    /*background-color: cyan;*/
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin-top: 30px;
+}
+
+form input {
+    width: 100%;
+    height: 40px;
+    margin-bottom: 15px;
+    outline: none;
+    font-size: 17px;
+    border-radius: 5px;
+    border: 1px solid var(--input_border-color);
+    border-bottom-width: 2px;
+    padding-left: 15px;
+}
+
+form #btn {
+    cursor: pointer;
+    border: none;
+    background: linear-gradient(to right, var(--grad_a), var(--grad_b));
+    color: #fff;
+    font-weight: 500;
+}
+
+.password_recover, .signup_option, .signin_option{
+    color: var(--text);
+    margin-bottom: 10px;
+    font-size: 15px;
+}
+
+.password_recover a, .signup_option a, .signin_option a {
+    font-weight: bold;
+    color: var(--link_color);
+}
+
+.password_recover a:hover, .signup_option a:hover, .signin_option a:hover {
+    text-decoration: underline;
+}
+
+.some {
+    display: none !important;
+}
+
+#form__content_cadastro {
+    /*background-color: chartreuse;*/
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+}
+
+#form__content_cadastro h1 {
+    color: var(--text);
+    font-size: 30px;
+    text-align: center;
+}
+
+#form__content_cadastro .form__content_cadastro__form{
+    /*background-color: cyan;*/
+    display: flex;
+    flex-direction: column;
+    margin-top: 30px;
+    padding: 5px;
+    padding-bottom: 10px;
+}
+
+.form__content_cadastro__form form h2{
+    color: var(--text);
+    font-size: 20px;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+.form__content_cadastro__form form #user_interests{
+    margin-bottom: 20px;
+}
+
+#form__content_cadastro .user_specification {
+    /*background-color: cyan;*/
+    width: 100%;
+    margin-top: 30px;
+    padding-left: 10px;
+    font-size: 17px;
+}
+
+#form__content_cadastro .user_specification p{
+    color: var(--text);
+    margin-bottom: 8px;
+}
+
+#form__content_cadastro .user_specification input {
+    color: var(--text);
+    display: none;
+}
+
+#form__content_cadastro .user_specification label {
+    color: var(--text);
+}
+
+#form__content_cadastro .user_specification input + label {
+    cursor: pointer;
+}
+
+#form__content_cadastro .user_specification input + label:before {
+    content: '';
+    width: 18px;
+    height: 18px;
+    border-radius: 4px;
+    background-color: white;
+    border: 1px solid gray;
+    vertical-align: middle;
+    margin-right: 8px;
+    margin-bottom: 3px;
+    display: inline-block;
+    cursor: pointer;
+}
+
+#form__content_cadastro .user_specification input:checked + label:before {
+    background-image: url("data:image/svg+xml,%0A%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 10 10'%3E%3Cg class='nc-icon-wrapper' stroke-width='1' fill='%23555555'%3E%3Cpath fill='none' stroke='%23FFFFFF' stroke-linecap='round' stroke-linejoin='round' stroke-miterlimit='10' data-cap='butt' d='M2.83 4.72l1.58 1.58 2.83-2.83'/%3E%3C/g%3E%3C/svg%3E");
+    background-color: brown;
+}
+
+.form__content_cadastro__form form #user_interests select{
+    color: var(--text);
+    box-shadow: 0 10px 25px rgba(0,0,0,0);
+    font-size: 1rem;
+    padding: 2px;
+    background: brown;
+    color: white;
+    outline: none;
+}
+
+.form__content_cadastro__form form #user_interests i{
+    color: var(--text);
+    cursor: pointer;
+}
+
+.signin_option {
+    margin-top: 4px;
+}
+
+/*MODAL (MIDIAS DOS POSTS)*/
+
+.media {
+    cursor: pointer;
+}
+
+.show_modal_media_photo{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--modais-bg);
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+.show_modal_media_photo img{
+    border-radius: 10%;
+}

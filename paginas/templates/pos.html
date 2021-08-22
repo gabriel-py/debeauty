@@ -1,0 +1,194 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Inicial</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="{% static 'css/pos.css' %}">
+        <script src="https://kit.fontawesome.com/479f28df58.js" crossorigin="anonymous"></script>
+    </head>
+    <body>
+        <header>
+            <nav>
+                <i class="fas fa-bars fa-2x" id="icon_menu"></i>
+                <label class="logo">Debeauty</label>
+                <ul>
+                    <i class="fas fa-moon fa-2x" id="mode_adjust"></i>
+                    <li><span id="name_user">Gabriel Gonçalves de Souza Ribeiro</span></li>
+                    <img src="https://pbs.twimg.com/profile_images/1416190244328706050/m6FvCGd7_400x400.jpg" id="user_profile_photo">
+                </ul>
+            </nav>
+        </header>
+        <main>
+            <section id="colum1" class="">
+
+            </section>
+            <section id="feed">
+                <div class="post">
+                    <img src="https://pbs.twimg.com/profile_images/1416190244328706050/m6FvCGd7_400x400.jpg" class="profile_photo">
+                    <div class="post_body">
+                        <div class="post_information">
+                            <span class="name_colaborador">Gabriel Cunha</span>
+                            <span class="localization"><i class="fas fa-map-marker-alt"></i> <span class="localization__text">Belo Horizonte</span></span>
+                            <span class="category"><i class="fas fa-tshirt"></i> <span class="category__text">Cabelo Masculino e Barba</span></span>
+                        </div>
+                        <div class="post_content">
+                            <span>Pode-se definir a propriedade align-items como flex-start, de modo que os elementos fiquem alinhados com topo do contêiner, flex-end para alinhá-los a partir da base ou center, para que o alinhamento seja centralizado.</span>
+                        </div>
+                        <div class="post_media">
+                            <img src="https://i.pinimg.com/originals/9f/81/e5/9f81e53f576cc88192006f7b32907f58.jpg" class="media">
+                            <img src="https://i.pinimg.com/originals/9f/81/e5/9f81e53f576cc88192006f7b32907f58.jpg" class="media">
+                            <img src="https://i.pinimg.com/originals/9f/81/e5/9f81e53f576cc88192006f7b32907f58.jpg" class="media">
+                            <img src="data:image/jpeg;base64,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" class="media">
+                        </div>
+                        <div class="post__reactions">
+                            <i class="fas fa-thumbs-down fa-2x"></i>
+                            <i class="fas fa-heart fa-2x"></i>
+                            <i class="fas fa-ellipsis-v fa-2x"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="post">
+                    <img src="https://pbs.twimg.com/profile_images/1416190244328706050/m6FvCGd7_400x400.jpg" class="profile_photo">
+                    <div class="post_body">
+                        <div class="post_information">
+                            <span class="name_colaborador">Gabriel Cunha</span>
+                            <span class="localization"><i class="fas fa-map-marker-alt"></i> <span class="localization__text">Belo Horizonte</span></span>
+                            <span class="category"><i class="fas fa-tshirt"></i> <span class="category__text">Cabelo Masculino e Barba</span></span>
+                        </div>
+                        <div class="post_content">
+                            <span>Pode-se definir a propriedade align-items como flex-start, de modo que os elementos fiquem alinhados com topo do contêiner, flex-end para alinhá-los a partir da base ou center, para que o alinhamento seja centralizado.</span>
+                        </div>
+                        <div class="post_media">
+                            <img src="https://i.pinimg.com/originals/9f/81/e5/9f81e53f576cc88192006f7b32907f58.jpg" class="media">
+                            <img src="data:image/jpeg;base64,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" class="media">
+                        </div>
+                        <div class="post__reactions">
+                            <i class="fas fa-thumbs-down fa-2x"></i>
+                            <i class="fas fa-heart fa-2x"></i>
+                            <i class="fas fa-ellipsis-v fa-2x"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="post">
+                    <img src="https://pbs.twimg.com/profile_images/1416190244328706050/m6FvCGd7_400x400.jpg" class="profile_photo">
+                    <div class="post_body">
+                        <div class="post_information">
+                            <span class="name_colaborador">Gabriel Cunha</span>
+                            <span class="localization"><i class="fas fa-map-marker-alt"></i> <span class="localization__text">Belo Horizonte</span></span>
+                            <span class="category"><i class="fas fa-tshirt"></i> <span class="category__text">Cabelo Masculino e Barba</span></span>
+                        </div>
+                        <div class="post_content">
+                            <span>Pode-se definir a propriedade align-items como flex-start, de modo que os elementos fiquem alinhados com topo do contêiner, flex-end para alinhá-los a partir da base ou center, para que o alinhamento seja centralizado.</span>
+                        </div>
+                        <div class="post_media">
+                            
+                        </div>
+                        <div class="post__reactions">
+                            <i class="fas fa-thumbs-down fa-2x"></i>
+                            <i class="fas fa-heart fa-2x"></i>
+                            <i class="fas fa-ellipsis-v fa-2x"></i>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section id="colum3" class="">
+                <div class="card_users_online">
+                    <div id="info">
+                        <span class="text">Usuários Online</span>
+                        <span class="localization"><i class="fas fa-map-marker-alt"></i> <span class="localization__text">Belo Horizonte</span></span>
+                    </div>
+                    <div id="online_users_list">
+                        <div class="online_user">
+                            <img src="https://ava.cefetmg.br/pluginfile.php/67945/user/icon/classic/f1?rev=3034447" class="online_user_img">
+                            <span class="online_user_name">Gabriel Gonçalves de Souza Ribeiro</span>
+                        </div>
+                        <div class="online_user">
+                            <img src="https://ava.cefetmg.br/pluginfile.php/67945/user/icon/classic/f1?rev=3034447" class="online_user_img">
+                            <span class="online_user_name">Gabriel Gonçalves de Souza Ribeiro</span>
+                        </div>
+                        <div class="online_user">
+                            <img src="https://ava.cefetmg.br/pluginfile.php/67945/user/icon/classic/f1?rev=3034447" class="online_user_img">
+                            <span class="online_user_name">Gabriel Gonçalves de Souza Ribeiro</span>
+                        </div>
+                        <div class="online_user">
+                            <img src="https://ava.cefetmg.br/pluginfile.php/67945/user/icon/classic/f1?rev=3034447" class="online_user_img">
+                            <span class="online_user_name">Gabriel Gonçalves de Souza Ribeiro</span>
+                        </div>
+                        <div class="online_user">
+                            <img src="https://ava.cefetmg.br/pluginfile.php/67945/user/icon/classic/f1?rev=3034447" class="online_user_img">
+                            <span class="online_user_name">Gabriel Gonçalves de Souza Ribeiro</span>
+                        </div>
+                        <div class="online_user">
+                            <img src="https://ava.cefetmg.br/pluginfile.php/67945/user/icon/classic/f1?rev=3034447" class="online_user_img">
+                            <span class="online_user_name">Gabriel Gonçalves de Souza Ribeiro</span>
+                        </div>
+                        <div class="online_user">
+                            <img src="https://ava.cefetmg.br/pluginfile.php/67945/user/icon/classic/f1?rev=3034447" class="online_user_img">
+                            <span class="online_user_name">Gabriel Gonçalves de Souza Ribeiro</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <div class="some" id="modal_media_photo">
+                <img src="" id="img_modal">
+            </div>
+            <div id="menu_lateral" class="some">
+                <nav>
+                    <i class="fas fa-times fa-2x" id="close_menu_lateral"></i>
+                    <ul>
+                        <li><a href="{% url 'novo_pedido' %}">Novo Pedido</a></li>
+                        <li>Dia de Princesa</li>
+                        <li>Histórico</li>
+                    </ul>
+                </nav>
+            </div>
+        </main>
+        <script>
+            /*  DARK E LIGHT MODE*/
+            let mode_adjust = document.getElementById("mode_adjust");
+            mode_adjust.addEventListener("click",function(){
+                document.querySelector("HTML").classList.toggle("dark-mode");
+            });
+            /* END */
+
+            /* POST MEDIAS POP UP */
+
+            let medias = document.querySelectorAll(".media");
+            for(let i=0; i<medias.length; i++){
+                medias[i].addEventListener("click",show_modal);
+            }
+
+            let janela_modal = document.getElementById("modal_media_photo");
+            let img_modal = document.getElementById("img_modal");
+            function show_modal(e){
+                let imagem_clicada = e.currentTarget;
+                img_modal.src = imagem_clicada.src;
+                janela_modal.classList.remove("some");
+                janela_modal.classList.add("show_modal_media_photo");
+            }
+
+            janela_modal.addEventListener("click",function(){
+                janela_modal.classList.remove("show_modal_media_photo");
+                janela_modal.classList.add("some");
+            });
+
+            /* END */
+
+            /* MENU LATERAL */
+
+            let menu_lateral = document.getElementById("menu_lateral");
+            document.getElementById("icon_menu").addEventListener("click", function(){
+                menu_lateral.classList.remove("some");
+            });
+            document.getElementById("close_menu_lateral").addEventListener("click", function(){
+                menu_lateral.classList.add("some");
+            });
+
+
+            /* END */
+        </script>
+    </body>
+</html>
