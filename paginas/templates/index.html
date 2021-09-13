@@ -1,10 +1,12 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="pt-br">
   <head>
     <title>Debeauty</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="index_style.css">
+    <link rel="stylesheet" href="{% static 'css/index_style.css' %}">
     <script src="https://kit.fontawesome.com/479f28df58.js" crossorigin="anonymous"></script>
   </head>
   <body>
@@ -24,7 +26,7 @@
     </header>
     <main>
         <section id="art">
-            <img src="ref.png">
+            <img src="https://site-clientes-assets-production.getninjas.com.br/images/home/pros/pro-0-md.png">
             <div id="art__cards">
                 <div id="text">Serviços disponíveis</div>
                 <div id="cards">
@@ -140,6 +142,7 @@
             <div id="form__content_login">
                 <h1>Login</h1>
                 <form method="POST" action="">
+                    {% csrf_token %}
                     <input type="text" name="email" placeholder="E-mail" required>
                     <input type="password" name="password" placeholder="Senha" required>
                     <div class="password_recover">
@@ -168,6 +171,7 @@
                 
                 <div id="form__content_cadastro_cliente" class="form__content_cadastro__form some">
                     <form method="POST" action="">
+                        {% csrf_token %}
                         <input type="text" name="name" placeholder="Nome" required>
                         <input type="text" name="email" placeholder="E-mail" required>
                         <input type="password" name="password" placeholder="Senha" required>
