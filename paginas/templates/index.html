@@ -1,12 +1,10 @@
-{% load static %}
-
 <!DOCTYPE html>
 <html lang="pt-br">
   <head>
     <title>Debeauty</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{% static 'css/index_style.css' %}">
+    <link rel="stylesheet" href="index_style.css">
     <script src="https://kit.fontawesome.com/479f28df58.js" crossorigin="anonymous"></script>
   </head>
   <body>
@@ -16,9 +14,9 @@
             <label for="check" class="checkbtn">
                 <i class="fas fa-bars"></i>
             </label>
+            <i class="fas fa-moon fa-2x" id="mode_adjust"></i>
             <label class="logo">Debeauty</label>
             <ul>
-                <i class="fas fa-moon fa-2x" id="mode_adjust"></i>
                 <li><a href="#" onclick="mostra_form_cadastro()" id="btnCadastro">Cadastro</a></li>
                 <li><a href="#" onclick="mostra_form_login()" id="btnLogin" class="selected">Login</a></li>
             </ul>
@@ -26,7 +24,7 @@
     </header>
     <main>
         <section id="art">
-            <img src="{% static 'img/ref.png' %}">
+            <img src="ref.png">
             <div id="art__cards">
                 <div id="text">Serviços disponíveis</div>
                 <div id="cards">
@@ -141,8 +139,7 @@
         <section id="form">
             <div id="form__content_login">
                 <h1>Login</h1>
-                <form method="POST" action="{% url 'login' %}">
-                    {% csrf_token %}
+                <form method="POST" action="">
                     <input type="text" name="email" placeholder="E-mail" required>
                     <input type="password" name="password" placeholder="Senha" required>
                     <div class="password_recover">
@@ -171,7 +168,6 @@
                 
                 <div id="form__content_cadastro_cliente" class="form__content_cadastro__form some">
                     <form method="POST" action="">
-                        {% csrf_token %}
                         <input type="text" name="name" placeholder="Nome" required>
                         <input type="text" name="email" placeholder="E-mail" required>
                         <input type="password" name="password" placeholder="Senha" required>
@@ -194,7 +190,6 @@
 
                 <div id="form__content_cadastro_colaborador" class="form__content_cadastro__form some">
                     <form method="POST" action="">
-                        {% csrf_token %}
                         <input type="text" name="name" placeholder="Nome" required>
                         <input type="text" name="email" placeholder="E-mail" required>
                         <input type="password" name="password" placeholder="Senha" required>

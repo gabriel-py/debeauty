@@ -74,7 +74,7 @@ a {
 
 /*specific*/
 
-nav #icon_menu {
+nav #mode_adjust {
     padding: 20px;
     margin-left: 10px;
     color: white;
@@ -495,4 +495,80 @@ main #colum3{
     padding-left: 8px;
     font-size: 15px;
     color: var(--feed_post_informations-color);
+}
+
+/*MENU TELA LATERAL*/
+
+#colum1 {
+    /*background-color: darkred;*/
+    /*border-style: solid;
+    border-width: 1px;
+    border-color: var(--feed_border-color);*/
+}
+
+#colum1 #user_info {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /*background-color: darkviolet;*/
+    padding: 6px;
+}
+
+#colum1 #user_info #user_profile_photo_tela{
+    width: 62px;
+    height: 62px;
+    border-radius: 9999px;
+    cursor: pointer;
+}
+
+#colum1 #user_info #name_user_tela{
+    font-size: 15pt;
+    margin-left: 8px;
+    color: var(--text);
+}
+
+#colum1 #menu_lateral_tela {
+    display: flex;
+    flex-direction: column;
+}
+
+#colum1 #menu_lateral_tela .menu_lateral_tela_option {
+    font-size: 18pt;
+    /*background-color: forestgreen;*/
+    margin-top: 15px;
+    padding: 6px;
+    color: var(--text);
+}
+
+#btn_faixa{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 30px !important;
+}
+
+.option{
+    padding: 10px;
+    border-radius: 9999px;
+}
+
+.option:hover {
+    background-color: var(--feed_post_hover-bg);
+}
+
+.option i {
+    margin-right: 10px;
+}
+
+#btn_novo_pedido {
+    cursor: pointer;
+    border: none;
+    background: var(--nav-bg);
+    color: #fff;
+    border-radius: 20px;
+    padding-left: 10px;
+    padding-right: 10px;
+    font-size: 12pt;
+    width: 100%;
+    height: 40px;
 }

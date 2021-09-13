@@ -62,11 +62,18 @@ nav {
     width: 100%;
 }
 
+nav #mode_adjust {
+    padding: 20px;
+    margin-left: 10px;
+    color: white;
+    cursor: pointer;
+}
+
 label.logo{
     color: var(--logo-color);
     font-size: 35px;
     line-height: 80px;
-    padding: 0 100px;
+    padding: 0 20px;
     font-weight: bold;
 }
 

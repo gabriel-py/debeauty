@@ -1,21 +1,18 @@
-{% load static %}
-
 <!DOCTYPE html>
 <html>
     <head>
         <title>Inicial</title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="{% static 'css/pos.css' %}">
+        <link rel="stylesheet" href="pos.css">
         <script src="https://kit.fontawesome.com/479f28df58.js" crossorigin="anonymous"></script>
     </head>
     <body>
         <header>
             <nav>
-                <i class="fas fa-bars fa-2x" id="icon_menu"></i>
+                <i class="fas fa-moon fa-2x" id="mode_adjust"></i>
                 <label class="logo">Debeauty</label>
                 <ul>
-                    <i class="fas fa-moon fa-2x" id="mode_adjust"></i>
                     <li><span id="name_user">Gabriel Gonçalves de Souza Ribeiro</span></li>
                     <img src="https://pbs.twimg.com/profile_images/1416190244328706050/m6FvCGd7_400x400.jpg" id="user_profile_photo">
                 </ul>
@@ -23,7 +20,24 @@
         </header>
         <main>
             <section id="colum1" class="">
-
+                <!-- <div id="user_info">
+                    <img src="https://pbs.twimg.com/profile_images/1416190244328706050/m6FvCGd7_400x400.jpg" id="user_profile_photo_tela">
+                    <span id="name_user_tela">Gabriel Gonçalves de Souza Ribeiro</span>
+                </div> -->
+                <div id="menu_lateral_tela">
+                    <div class="menu_lateral_tela_option" id="home_option">
+                        <span class="option"><i class="fas fa-home"></i>Home</span>
+                    </div>
+                    <div class="menu_lateral_tela_option" id="notificacoes_option">
+                        <span class="option"><i class="fas fa-bell"></i>Notificações</span>
+                    </div>
+                    <div class="menu_lateral_tela_option" id="pedidos_option">
+                        <span class="option"><i class="fas fa-air-freshener"></i>Pedidos</span>
+                    </div>
+                    <div class="menu_lateral_tela_option" id="btn_faixa">
+                        <input type="submit" value="Novo pedido" id="btn_novo_pedido">
+                    </div>
+                </div>
             </section>
             <section id="feed">
                 <div class="post">
@@ -139,13 +153,14 @@
                 <nav>
                     <i class="fas fa-times fa-2x" id="close_menu_lateral"></i>
                     <ul>
-                        <li><a href="{% url 'novo_pedido' %}">Novo Pedido</a></li>
+                        <li><a href="novo_pedido.html">Novo Pedido</a></li>
                         <li>Dia de Princesa</li>
                         <li>Histórico</li>
                     </ul>
                 </nav>
             </div>
         </main>
+        
         <script>
             /*  DARK E LIGHT MODE*/
             let mode_adjust = document.getElementById("mode_adjust");
@@ -180,12 +195,12 @@
             /* MENU LATERAL */
 
             let menu_lateral = document.getElementById("menu_lateral");
-            document.getElementById("icon_menu").addEventListener("click", function(){
+            /*document.getElementById("icon_menu").addEventListener("click", function(){
                 menu_lateral.classList.remove("some");
             });
             document.getElementById("close_menu_lateral").addEventListener("click", function(){
                 menu_lateral.classList.add("some");
-            });
+            });*/
 
 
             /* END */

@@ -27,6 +27,13 @@
     --menu_lateral-bg: rgba(0, 0, 0, .9);
     --menu_lateral-box_shadow: rgb(0 0 0 / 12%);
     --menu_lateral-options-text-color: white;
+    --wrapper-border: #c2cdda;
+    --wrapper-bg: #fff;
+
+    --altura-progress_bar: 6px;
+    --progressao: 60%;
+
+    --modal_pedido_border_color: #c2cdda;
 }
 
 .dark-mode:root {
@@ -42,6 +49,8 @@
     --modais-bg: rgba(0, 0, 0, .8);
     --menu_lateral-box_shadow: #827d7d;
     --menu_lateral-options-text-color: white;
+    --wrapper-border: white;
+    --wrapper-bg: black;
 }
 
 * {
@@ -56,6 +65,11 @@
 body {
     font-family: montserrat;
     background-color: var(--body-bg);
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
 }
 
 /*HEADER*/
@@ -143,7 +157,7 @@ main #colum1{
     /*background-color: cadetblue;*/
 }
 
-main #feed{
+main #form_pedido{
     /*background-color: crimson;*/
 }
 
@@ -151,116 +165,56 @@ main #colum3{
     /*background-color: darkolivegreen;*/
 }
 
-/*FEED*/
+/*PEDIDOS*/
 
-#feed {
-    display: flex;
-    flex-direction: column;
-    /*background-color: darkorange;*/
-    border-style: solid;
-    border-width: 1px;
-    border-color: var(--feed_border-color);
+main #pedidos {
+    /*background-color: chocolate;*/
 }
 
-.post {
-    background-color: var(--post-bg);
-    display: flex;
-    padding: 10px;
-    /*background-color: darkviolet;*/
+main #pedidos h1 {
+    padding: 6px;
+    font-size: 25pt;
+    margin-bottom: 20px;
+    color: var(--text);
+}
+
+#novos_pedidos, #historico {
+    /*background-color: darkmagenta;*/
     border-bottom: 1px solid var(--feed_border-color);
+    margin-bottom: 20px;
 }
 
-.post:hover{
+.pedido {
+    /*background-color: darkgreen;*/
+    border: 1px solid var(--feed_border-color);
+    border-bottom: none;
+    padding: 8px;
+}
+
+.pedido:hover {
     background-color: var(--feed_post_hover-bg);
     transition: all ease .5s;
 }
 
-.post_body {
-    display: flex;
-    flex-direction: column;
-    padding-left: 6px;
+.pedido .info {
+    
 }
 
-.post_information{
-    display: flex;
-    /*background-color: goldenrod;*/
-}
-
-.name_colaborador{
+.pedido .tit_pedido{
+    font-weight: 800;
+    font-size: 15pt;
+    margin-bottom: 8px;
     color: var(--text);
-    font-weight: 1000;
 }
 
-.localization, .category {
-    padding-left: 8px;
-    font-size: 15px;
+.pedido .tit_pedido i{
+    color: var(--nav-bg);
+}
+
+.pedido .info{
+    font-size: 12pt;
     color: var(--feed_post_informations-color);
-}
-
-.post_content {
-    display: block;
-    padding-top: 3px;
-    /*padding-left: 6px;*/
-}
-
-.post_content span {
-    color: var(--text);
-}
-
-.post_media{
-    margin-top: 10px;
-    display: flex;
-    flex-wrap: wrap;
-    max-width: 100%;
-}
-
-.post_media img{
-    object-fit: cover;
-    width: 200px;
-    height: 200px;
-    border-radius: 10%;
-    padding-right: 4px;
-    padding-bottom: 4px;
-}
-
-.post__reactions{
-    margin-top: 30px;
-    display: flex;
-    justify-content: flex-end;
-    color: var(--feed_post_reactions-color);
-    justify-content: space-between;
-}
-
-.profile_photo {
-    width: 48px;
-    height: 48px;
-    border-radius: 9999px;
-}
-
-/*MODAL (MIDIAS DOS POSTS)*/
-
-.media {
-    cursor: pointer;
-}
-
-.show_modal_media_photo{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: var(--modais-bg);
-    position: fixed;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-}
-
-.show_modal_media_photo img{
-    border-radius: 10%;
-}
-
-.some {
-    display: none !important;
+    margin-bottom: 2px;
 }
 
 
@@ -314,14 +268,114 @@ main #colum3{
     cursor: pointer;
 }
 
-#menu_lateral nav ul a{
-    /*background-color: cornflowerblue;*/
-    color: var(--menu_lateral-options-text-color);
-}
-
 #menu_lateral nav ul li:hover{
     font-size: 26px;
     transition: all .3s;
+}
+
+
+#user_interests select{
+    color: var(--text);
+    box-shadow: 0 10px 25px rgba(0,0,0,0);
+    font-size: 1rem;
+    padding: 2px;
+    background: brown;
+    color: white;
+    outline: none;
+}
+
+#user_interests i{
+    color: var(--text);
+    cursor: pointer;
+}
+
+
+/* FORM ENVIO FOTOS */
+
+.cont {
+    height: 350px;
+    width: 430px;
+}
+.cont .wrapper {
+    position: relative;
+    height: 300px;
+    width: 100%;
+    border-radius: 10px;
+    background: var(--wrapper-bg);
+    border: 2px dashed var(--wrapper-border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.wrapper .image{
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.wrapper .image img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+}
+
+.wrapper .icon {
+    font-size: 100px;
+    color: var(--nav-bg);
+}
+
+.wrapper .text {
+    font-size: 20px;
+    font-weight: 500;
+    color: #5B5B7B;
+}
+
+.wrapper #cancel-btn {
+    position: absolute;
+    right: 15px;
+    top: 15px;
+    font-size: 20px;
+    cursor: pointer;
+    color: var(--nav-bg);
+    display: none;
+}
+
+.wrapper .file-name {
+    position: absolute;
+    bottom: 0px;
+    width: 100%;
+    color: #fff;
+    padding: 8px 0;
+    font-size: 18px;
+    background: linear-gradient(135deg, var(--grad_a) 0%, var(--grad_b) 100%);
+    display: none;
+}
+
+.cont #custom-btn {
+    margin-top: 30px;
+    width: 100%;
+    height: 50px;
+    display: block;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    color: #fff;
+    font-size: 18px;
+    font-weight: 500;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    background: linear-gradient(135deg, var(--grad_a) 0%, var(--grad_b) 100%);
+}
+
+.envio_foto {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 /* LATERAL USUÁRIOS ONLINE */
@@ -377,6 +431,38 @@ main #colum3{
     height: 36px;
     border-radius: 9999px;
     margin-right: 4px;
+}
+
+.localization {
+    padding-left: 8px;
+    font-size: 15px;
+    color: var(--feed_post_informations-color);
+}
+
+/*MODAL (MIDIAS DOS POSTS)*/
+
+.media {
+    cursor: pointer;
+}
+
+.show_modal_media_photo{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--modais-bg);
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+.show_modal_media_photo img{
+    border-radius: 10%;
+}
+
+.some {
+    display: none !important;
 }
 
 /*MENU TELA LATERAL*/
@@ -442,7 +528,7 @@ main #colum3{
     margin-right: 10px;
 }
 
-#btn_novo_pedido {
+#btn {
     cursor: pointer;
     border: none;
     background: var(--nav-bg);
@@ -453,4 +539,101 @@ main #colum3{
     font-size: 12pt;
     width: 100%;
     height: 40px;
+}
+
+/* MODAL ACEITAR/RECUSAR PEDIDO */
+
+.show_modal_pedido{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--modais-bg);
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+#modal_pedido_content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 5%;
+}
+
+#pedido_info{
+    display: flex;
+    padding: 6px;
+    /*background-color: green;*/
+    border-bottom: 1px solid var(--modal_pedido_border_color);
+}
+
+#pedido_options{
+    display: flex;
+    /*background-color: indianred;*/
+    padding: 6px;
+    justify-content: space-between;
+}
+
+.btn_option{
+    cursor: pointer;
+    border: none;
+    color: #fff;
+    border-radius: 20px;
+    padding-left: 10px;
+    padding-right: 10px;
+    font-size: 12pt;
+    width: 48%;
+    height: 40px;
+    margin-top: 10px;
+}
+
+#btn_aceitar {
+    background-color: green;
+}
+
+#btn_recusar {
+    background: var(--nav-bg);
+}
+
+.profile_photo {
+    width: 62px;
+    height: 62px;
+    border-radius: 9999px !important;
+}
+
+.pedido_information {
+    display: flex;
+}
+
+.pedido_body {
+    display: flex;
+    flex-direction: column;
+    padding: 6px;
+}
+
+.pedido_description {
+    display: block;
+    padding-top: 3px;
+    /*padding-left: 6px;*/
+}
+
+.pedido_media{
+    margin-top: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    max-width: 100%;
+}
+
+.pedido_media img{
+    object-fit: cover;
+    width: 200px;
+    height: 200px;
+    border-radius: 10%;
+    padding-right: 4px;
+    padding-bottom: 4px;
+}
+
+.pedido_description{
+    max-width: 400px;
 }

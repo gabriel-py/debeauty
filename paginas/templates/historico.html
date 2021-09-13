@@ -4,7 +4,7 @@
         <title>Novo Pedido</title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="novo_pedido.css">
+        <link rel="stylesheet" href="historico.css">
         <script src="https://kit.fontawesome.com/479f28df58.js" crossorigin="anonymous"></script>
     </head>
     <body>
@@ -34,70 +34,83 @@
                     <div class="menu_lateral_tela_option" id="pedidos_option">
                         <span class="option"><i class="fas fa-air-freshener"></i>Pedidos</span>
                     </div>
+                    <!--<div class="menu_lateral_tela_option" id="btn_faixa">
+                        <input type="submit" value="Novo pedido" id="btn">
+                    </div>-->
                 </div>
             </section>
-            <section id="form_pedido">
-                <div class="progress">
-                    <div class="progress_bar">
+            <section id="pedidos">
+                <h1>Pedidos para analisar</h1>
+                <div id="novos_pedidos">
+                    <div class="pedido">
+                        <div class="tit_pedido">
+                            <i class="fas fa-circle"></i> Pedido <span class="num_pedido">487544785</span>
+                        </div>
+                        <div class="category info">
+                            Cabelo Masculino
+                        </div>
+                        <div class="data_pedido info">
+                            Realizado em <span class="real_data_pedido">25/05/2021</span>
+                        </div>
+                        <div class="situacao_pedido info">
+                            Aguardando resposta
+                        </div>
+                        <div class="valor_estimado info">
+                            R$ 72,00
+                        </div>
+                    </div>
+                    <div class="pedido">
+                        <div class="tit_pedido">
+                            <i class="fas fa-circle"></i> Pedido <span class="num_pedido">487544785</span>
+                        </div>
+                        <div class="category info">
+                            Cabelo Masculino
+                        </div>
+                        <div class="data_pedido info">
+                            Realizado em <span class="real_data_pedido">25/05/2021</span>
+                        </div>
+                        <div class="situacao_pedido info">
+                            Aguardando resposta
+                        </div>
+                        <div class="valor_estimado info">
+                            R$ 72,00
+                        </div>
                     </div>
                 </div>
-                <div id="form">
-                    <div class="pergunta some" id="1">
-                        <p class="text_superior">Por quais serviços você procura?</p>
-                        <div class="inputs">
-                            <div id="user_interests">
-                                <select name="interest" id="interest">
-                                    <option value="1">Roupas e Vestuário (Feminino)</option>
-                                    <option value="2">Roupas e Vestuário (Masculino)</option>
-                                    <option value="3">Cabelos Femininos</option>
-                                    <option value="4">Cabelos Masculinos e Barba</option>
-                                    <option value="5">Maquiagem</option>
-                                    <option value="6">Unhas</option>
-                                    <option value="7">Tratamentos Estéticos</option>
-                                </select>
-                                <i class="fas fa-plus"></i>
-                            </div>
+                <h1 id="h1_historico">Histórico</h1>
+                <div id="historico">
+                    <div class="pedido">
+                        <div class="tit_pedido">
+                            <i class="fas fa-circle"></i> Pedido <span class="num_pedido">487544785</span>
                         </div>
-                        <div class="inputs">
-                            <div id="user_interests">
-                                <select name="interest" id="interest">
-                                    <option value="1">Roupas e Vestuário (Feminino)</option>
-                                    <option value="2">Roupas e Vestuário (Masculino)</option>
-                                    <option value="3">Cabelos Femininos</option>
-                                    <option value="4">Cabelos Masculinos e Barba</option>
-                                    <option value="5">Maquiagem</option>
-                                    <option value="6">Unhas</option>
-                                    <option value="7">Tratamentos Estéticos</option>
-                                </select>
-                                <i class="fas fa-plus"></i>
-                            </div>
+                        <div class="category info">
+                            Roupas e vestuário
                         </div>
-                        <div class="btn">
-                            <i class="fas fa-forward fa-2x"></i>
+                        <div class="data_pedido info">
+                            Realizado em <span class="real_data_pedido">25/05/2021</span>
+                        </div>
+                        <div class="situacao_pedido info">
+                            Concluído
+                        </div>
+                        <div class="valor_estimado info">
+                            R$ 72,00
                         </div>
                     </div>
-                    <div class="pergunta" id="2">
-                        <p class="text_superior">Solicitação 1: Cabelos Masculinos e Barba</p>
-                        <div class="inputs">
-                            <p>Se desejar, envie uma foto que ilustre o corte de cabelo que você pretende.</p>
-                            <div class="envio_foto">
-                                <div class="cont">
-                                    <div class="wrapper">
-                                        <div class="image">
-                                        </div>
-                                        <div class="content">
-                                            <div class="icon"><i class="fas fa-cloud-upload-alt"></i></div>
-                                        </div>
-                                        <div id="cancel-btn"><i class="fas fa-times"></i></div>
-                                    </div>
-                                    <input id="default-btn" type="file" hidden>
-                                    <button onclick="defaultBtnActive()" id="custom-btn">Escolha uma foto</button>
-                                </div>
-                            </div>
+                    <div class="pedido">
+                        <div class="tit_pedido">
+                            <i class="fas fa-circle"></i> Pedido <span class="num_pedido">487544785</span>
                         </div>
-                        <div class="btn">
-                            <i class="fas fa-forward fa-2x"></i>
-                            <i class="fas fa-backward fa-2x"></i>
+                        <div class="category info">
+                            Roupas e vestuário
+                        </div>
+                        <div class="data_pedido info">
+                            Realizado em <span class="real_data_pedido">25/05/2021</span>
+                        </div>
+                        <div class="situacao_pedido info">
+                            Concluído
+                        </div>
+                        <div class="valor_estimado info">
+                            R$ 72,00
                         </div>
                     </div>
                 </div>
@@ -140,9 +153,6 @@
                     </div>
                 </div>
             </section>
-            <div class="some" id="modal_media_photo">
-                <img src="" id="img_modal">
-            </div>
             <div id="menu_lateral" class="some">
                 <nav>
                     <i class="fas fa-times fa-2x" id="close_menu_lateral"></i>
@@ -154,6 +164,30 @@
                 </nav>
             </div>
         </main>
+        <div class="some" id="modal_media_pedido">
+            <div id="modal_pedido_content">
+                <div id="pedido_info">
+                    <img src="https://pbs.twimg.com/profile_images/1416190244328706050/m6FvCGd7_400x400.jpg" class="profile_photo">
+                    <div class="pedido_body">
+                        <div class="pedido_information">
+                            <span class="name_cliente">Gabriel Cunha</span>
+                            <span class="localization"><i class="fas fa-map-marker-alt"></i> <span class="localization__text">Belo Horizonte</span></span>
+                        </div>
+                        <div class="pedido_description">
+                            <span>Meu cabelo atualmente está como na primeira foto e gostaria que ele ficasse parecido com o cabelo do modelo da segunda.</span>
+                        </div>
+                        <div class="pedido_media">
+                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT3bBxkIGgOP8gxTNblkN-xtdm79iCOT9Pzrw&usqp=CAU" class="media">
+                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRXwNu42DsjJF70vREy-8ipJr3QsPCraThUnA&usqp=CAU" class="media">
+                        </div>
+                    </div>
+                </div>
+                <div id="pedido_options">
+                    <input type="submit" value="Recusar" class="btn_option" id="btn_recusar">
+                    <input type="submit" value="Aceitar" class="btn_option" id="btn_aceitar">
+                </div>
+            </div>
+        </div>
         <script>
             /*  DARK E LIGHT MODE*/
             let mode_adjust = document.getElementById("mode_adjust");
@@ -164,16 +198,13 @@
 
             /* POST MEDIAS POP UP */
 
-            let medias = document.querySelectorAll(".media");
+            let medias = document.querySelectorAll(".pedido");
             for(let i=0; i<medias.length; i++){
                 medias[i].addEventListener("click",show_modal);
             }
 
-            let janela_modal = document.getElementById("modal_media_photo");
-            let img_modal = document.getElementById("img_modal");
+            let janela_modal = document.getElementById("modal_media_pedido");
             function show_modal(e){
-                let imagem_clicada = e.currentTarget;
-                img_modal.src = imagem_clicada.src;
                 janela_modal.classList.remove("some");
                 janela_modal.classList.add("show_modal_media_photo");
             }
