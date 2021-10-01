@@ -13,13 +13,13 @@ class Usuario(models.Model):
     def __str__(self):
         return "{} {}".format(self.nome, self.sobrenome)
 
-class Cliente(Usuario):
-    ramos_interesse = models.ManyToManyField(Ramo)
-
 class Ramo(models.Model):
     nome = models.CharField(max_length=200)
     descricao = models.CharField(max_length=200)
     icon = models.CharField(max_length=200)
+
+class Cliente(Usuario):
+    ramos_interesse = models.ManyToManyField(Ramo)
 
 class Colaborador(Usuario):
     endereco_profissional = models.CharField(max_length=200)
@@ -31,6 +31,9 @@ class Pedido(models.Model):
     valor_total = models.FloatField(blank=False, null=False)
     faixa_horario = models.CharField(max_length=200)
 
+class Media(models.Model):
+    url = models.CharField(max_length=2000)
+
 class Solicitacao(models.Model):
     cod_pedido = models.IntegerField(null=False, blank=False)
     cod_colaborador = models.IntegerField(null=False, blank=False)
@@ -39,8 +42,8 @@ class Solicitacao(models.Model):
     descricao = models.CharField(max_length=200)
     medias = models.ManyToManyField(Media)
 
-class Media(models.Model):
-    url = models.CharField(max_length=2000)
+class Likes(models.Model):
+    cod_usuario = models.IntegerField(null=False, blank=False)
 
 class Post(models.Model):
     ramo = models.ManyToManyField(Ramo)
@@ -48,7 +51,4 @@ class Post(models.Model):
     conteudo = models.TextField(blank=True, null=True)
     midias = models.ManyToManyField(Media)
     likes = models.ManyToManyField(Likes)
-
-class Likes(models.Model):
-    cod_usuario = models.IntegerField(null=False, blank=False)
     
