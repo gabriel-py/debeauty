@@ -8,6 +8,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{% static 'css/index_style.css' %}">
     <script src="https://kit.fontawesome.com/479f28df58.js" crossorigin="anonymous"></script>
+    <style>
+        a{
+            cursor: pointer;
+        }
+    </style>
   </head>
   <body>
     <header>
@@ -19,8 +24,8 @@
             <i class="fas fa-moon fa-2x" id="mode_adjust"></i>
             <label class="logo">Debeauty</label>
             <ul>
-                <li><a href="#" onclick="mostra_form_cadastro()" id="btnCadastro">Cadastro</a></li>
-                <li><a href="#" onclick="mostra_form_login()" id="btnLogin" class="selected">Login</a></li>
+                <li><a onclick="mostra_form_cadastro()" id="btnCadastro">Cadastro</a></li>
+                <li><a onclick="mostra_form_login()" id="btnLogin" class="selected">Login</a></li>
             </ul>
         </nav>
     </header>
@@ -141,41 +146,42 @@
         <section id="form">
             <div id="form__content_login">
                 <h1>Login</h1>
-                <form method="POST" action="">
+                <form method="POST" action="{% url 'login' %}">
                     {% csrf_token %}
                     <input type="text" name="email" placeholder="E-mail" required>
                     <input type="password" name="password" placeholder="Senha" required>
                     <div class="password_recover">
-                        <a href="#">Esqueceu a senha?</a>
+                        <a>Esqueceu a senha?</a>
                     </div>
                     <input type="submit" value="Entrar" id="btn">
                     <div class="signup_option">
-                        Novo aqui? <a href="#" id="faca_cadastro">Faça seu cadastro!</a>
+                        Novo aqui? <a id="faca_cadastro">Faça seu cadastro!</a>
                     </div>
                 </form>
             </div>
             <div id="form__content_cadastro" class="some">
                 <h1>Cadastro</h1>
-                
-                <div class="user_specification">
-                    <p>Você é um:</p>
-                    <input type="radio" id="cliente" name="selection" value="cliente">
-                    <label for="cliente">Cliente</label><br>
-                    <input type="radio" id="colaborador" name="selection" value="colaborador">
-                    <label for="colaborador">Colaborador (possui algum produto/serviço a ofertar)</label><br>
-                </div>
 
                 <div class="signin_option">
-                    Já possui cadastro? <a href="#" id="faca_login">Faça login!</a>
+                    Já possui cadastro? <a id="faca_login">Faça login!</a>
                 </div>
                 
-                <div id="form__content_cadastro_cliente" class="form__content_cadastro__form some">
-                    <form method="POST" action="">
+                <div class="form__content_cadastro__form">
+                    <form method="POST" action="{% url 'cadastro' %}">
                         {% csrf_token %}
+                        <div class="user_specification">
+                            <p>Você é um:</p>
+                            <input type="radio" id="cliente" name="selection" value="cliente">
+                            <label for="cliente">Cliente</label><br>
+                            <input type="radio" id="colaborador" name="selection" value="colaborador">
+                            <label for="colaborador">Colaborador (possui algum produto/serviço a ofertar)</label><br>
+                        </div>
                         <input type="text" name="name" placeholder="Nome" required>
                         <input type="text" name="email" placeholder="E-mail" required>
+                        <input type="text" name="cpf" placeholder="CPF" required>
                         <input type="password" name="password" placeholder="Senha" required>
-                        <h2>Interesses (selecione um ou mais): </h2>
+                        <input type="password" name="password" placeholder="Confirme a senha" required>
+                        <!--<h2>Interesses (selecione um ou mais): </h2>
                         <div id="user_interests">
                             <select name="interest" id="interest">
                                 <option value="1">Roupas e Vestuário (Feminino)</option>
@@ -187,29 +193,7 @@
                                 <option value="4">Tratamentos Estéticos</option>
                             </select>
                             <i class="fas fa-plus"></i>
-                        </div>
-                        <input type="submit" value="Cadastrar" id="btn">
-                    </form>
-                </div>
-
-                <div id="form__content_cadastro_colaborador" class="form__content_cadastro__form some">
-                    <form method="POST" action="">
-                        <input type="text" name="name" placeholder="Nome" required>
-                        <input type="text" name="email" placeholder="E-mail" required>
-                        <input type="password" name="password" placeholder="Senha" required>
-                        <h2>Com qual(is) áreas você trabalha? (selecione uma ou mais): </h2>
-                        <div id="user_interests">
-                            <select name="interest" id="interest">
-                                <option value="1">Roupas e Vestuário (Feminino)</option>
-                                <option value="1">Roupas e Vestuário (Masculino)</option>
-                                <option value="2">Cabelos Femininos</option>
-                                <option value="2">Cabelos Masculinos e Barba</option>
-                                <option value="3">Maquiagem</option>
-                                <option value="4">Unhas</option>
-                                <option value="4">Tratamentos Estéticos</option>
-                            </select>
-                            <i class="fas fa-plus"></i>
-                        </div>
+                        </div>-->
                         <input type="submit" value="Cadastrar" id="btn">
                     </form>
                 </div>
@@ -250,28 +234,6 @@
         });
 
         /* END */
-
-        /* COLABORATOR AND CUSTOMER FORMS SWITCH */
-
-        let chkCliente = document.getElementById("cliente");
-        let chkColaborador = document.getElementById("colaborador");
-
-        let form_cliente = document.getElementById("form__content_cadastro_cliente");
-        let form_colaborador = document.getElementById("form__content_cadastro_colaborador");
-
-        chkCliente.addEventListener("change", function (){
-            if (chkCliente.checked){
-                form_cliente.classList.remove("some");
-                form_colaborador.classList.add("some");
-            }
-        })
-
-        chkColaborador.addEventListener("change", function(){
-            if (chkColaborador.checked){
-                form_colaborador.classList.remove("some");
-                form_cliente.classList.add("some");
-            }
-        })
 
         let faca_login = document.getElementById("faca_login");
         let faca_cadastro = document.getElementById("faca_cadastro");

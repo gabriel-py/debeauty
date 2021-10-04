@@ -3,7 +3,8 @@ from .views import IndexView
 from . import views
 
 urlpatterns = [
-    path("", IndexView.as_view(), name="inicio"),
-    path("pos", views.login, name="login"),
-    path("novo_pedido", views.novo_pedido, name="novo_pedido"),
+    path("", IndexView.as_view(), name="index"),
+    path("login", views.login_system, name="login"),
+    path("cadastro", views.cadastro, name="cadastro"),
+    path("inicio", views.tela_inicial_logado, name="telaInicio"),
 ]
