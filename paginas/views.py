@@ -5,14 +5,15 @@ from .models import *
 from django.contrib.auth.models import User
 from django.urls import reverse_lazy
 from django.shortcuts import render, redirect
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.hashers import make_password
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.db import IntegrityError
 
 def tela_inicial(request, mensagem=None):
-    print(mensagem)
+    if(request.user.is_authenticated):
+        return redirect('telaInicio')
     return render(request, "index.html", mensagem)
 
 def tela_cadastro(request):
@@ -20,14 +21,16 @@ def tela_cadastro(request):
 
 @login_required(login_url='index')
 def tela_inicial_logado(request):
+    try:
+        Cliente.objects.get(django_user=request.user) #se o usuário logado for do tipo cliente, o programa não vai cair no bloco except e retornará a página pos
+    except:
+        return render(request, "pos_colaborador.html")
     return render(request, "pos.html")
 
 def login_system(request):
     if request.method == "POST":
         email = request.POST.get('email')
         password = request.POST.get('password')
-        print(email)
-        print(password)
         user = authenticate(username=email, password=password)
         if user is not None:
             login(request, user)
@@ -35,7 +38,11 @@ def login_system(request):
         else:
             messages.error(request, "Usuário ou senha inválidos!")
     return redirect('index')
-    
+
+@login_required(login_url='index')    
+def logout_system(request):
+    logout(request)
+    return redirect('index')
 
 def cadastro(request):
     if request.method == "POST":
@@ -58,3 +65,13 @@ def cadastro(request):
         except IntegrityError:
             messages.error(request, "E-mail já se encontra em uso.")
     return redirect('cadastro')
+
+@login_required(login_url='index')
+def cria_novo_post(request):
+    if request.method == "POST":
+        conteudo = request.POST.get('conteudo')
+        print(request.user.username)
+        usuario = Usuario.objects.get(django_user=request.user)
+        post = Post.objects.create(conteudo=conteudo, autor=usuario)
+        post.save()
+    return redirect('telaInicio')

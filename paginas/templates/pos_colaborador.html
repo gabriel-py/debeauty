@@ -15,6 +15,7 @@
             <nav>
                 <i class="fas fa-moon fa-2x" id="mode_adjust"></i>
                 <label class="logo">Debeauty</label>
+                <a href="{% url 'logout' %}">Sair</a>
                 <ul>
                     <li><span id="name_user">Gabriel Gonçalves de Souza Ribeiro</span></li>
                     <img src="https://pbs.twimg.com/profile_images/1416190244328706050/m6FvCGd7_400x400.jpg" id="user_profile_photo">
@@ -46,15 +47,22 @@
                 <div id="create_new_post">
                     <img src="https://pbs.twimg.com/profile_images/1416190244328706050/m6FvCGd7_400x400.jpg" class="profile_photo">
                     <section id="new_post_body">
-                        <textarea placeholder="Crie um novo post!" id="myTextarea"></textarea>
-                        <div id="new_post_options">
-                            <div id="includes">
-                                <i class="fas fa-plus fa-2x"></i>
-                                <i class="fas fa-map-marker-alt fa-2x"></i>
-                                <i class="far fa-images fa-2x"></i>
+                        <form action="{% url 'criaNovoPost' %}" method="POST">
+                            {% csrf_token %}
+                            <textarea placeholder="Crie um novo post!" id="myTextarea" name="conteudo"></textarea>
+                            <div id="medias">
+                                <!--<img src="https://i.pinimg.com/originals/9f/81/e5/9f81e53f576cc88192006f7b32907f58.jpg" class="media new_post_media">
+                                <img src="https://i.pinimg.com/originals/9f/81/e5/9f81e53f576cc88192006f7b32907f58.jpg" class="media new_post_media">-->
                             </div>
-                            <input type="submit" value="Postar" id="btn">
-                        </div>
+                            <div id="new_post_options">
+                                <div id="includes">
+                                    <i class="fas fa-plus fa-2x"></i>
+                                    <i class="fas fa-map-marker-alt fa-2x"></i>
+                                    <i class="far fa-images fa-2x"></i>
+                                </div>
+                                <input type="submit" value="Postar" id="btn">
+                            </div>
+                        </form>
                     </section>
                 </div>
                 <section id="posts">
