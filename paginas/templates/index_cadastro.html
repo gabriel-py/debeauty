@@ -1,0 +1,50 @@
+{% extends "index.html" %}
+
+{% block header_botoes_toggle %}
+    <li><a href="{% url 'cadastro' %}" onclick="mostra_form_cadastro()" id="btnCadastro" class="selected">Cadastro</a></li>
+    <li><a href="{% url 'index' %}" onclick="mostra_form_login()" id="btnLogin">Login</a></li>
+{% endblock %}
+
+{% block form %}
+    <div id="form__content_cadastro">
+        <h1>Cadastro</h1>
+
+        <div class="signin_option">
+            Já possui cadastro? <a href="{% url 'index' %}" id="faca_login">Faça login!</a>
+        </div>
+        
+        <div class="form__content_cadastro__form">
+            {% for message in messages %}
+                <h2 class="erro erro_cadastro">Erro! {{ message }}</h2>
+            {% endfor %}
+            <form method="POST" action="{% url 'fazer_cadastro' %}">
+                {% csrf_token %}
+                <div class="user_specification">
+                    <p>Você é um:</p>
+                    <input type="radio" id="cliente" name="selection" value="cliente">
+                    <label for="cliente">Cliente</label><br>
+                    <input type="radio" id="colaborador" name="selection" value="colaborador">
+                    <label for="colaborador">Colaborador (possui algum produto/serviço a ofertar)</label><br>
+                </div>
+                <input type="text" name="name" placeholder="Nome" required>
+                <input type="text" name="email" placeholder="E-mail" required>
+                <input type="password" name="password" placeholder="Senha" required>
+                <input type="password" name="password" placeholder="Confirme a senha" required>
+                <!--<h2>Interesses (selecione um ou mais): </h2>
+                <div id="user_interests">
+                    <select name="interest" id="interest">
+                        <option value="1">Roupas e Vestuário (Feminino)</option>
+                        <option value="1">Roupas e Vestuário (Masculino)</option>
+                        <option value="2">Cabelos Femininos</option>
+                        <option value="2">Cabelos Masculinos e Barba</option>
+                        <option value="3">Maquiagem</option>
+                        <option value="4">Unhas</option>
+                        <option value="4">Tratamentos Estéticos</option>
+                    </select>
+                    <i class="fas fa-plus"></i>
+                </div>-->
+                <input type="submit" value="Cadastrar" id="btn">
+            </form>
+        </div>
+    </div>
+{% endblock %}

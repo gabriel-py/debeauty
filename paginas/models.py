@@ -8,9 +8,7 @@ class Media(models.Model):
 
 class Usuario(models.Model):
     nome = models.CharField(max_length=220)
-    cpf = models.CharField(max_length=11)
     localizacao = models.CharField(max_length=200, null=True)
-    tipo_usuario = models.CharField(max_length=200, null=True)
 
     foto_perfil = models.ForeignKey(Media, on_delete=models.PROTECT, null=True)
     django_user = models.OneToOneField(User, on_delete=models.CASCADE)

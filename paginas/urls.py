@@ -1,10 +1,10 @@
 from django.urls import path
-from .views import IndexView
 from . import views
 
 urlpatterns = [
-    path("", IndexView.as_view(), name="index"),
+    path("", views.tela_inicial, name="index"),
+    path("cadastro", views.tela_cadastro, name="cadastro"),
     path("login", views.login_system, name="login"),
-    path("cadastro", views.cadastro, name="cadastro"),
+    path("fazer_cadastro", views.cadastro, name="fazer_cadastro"),
     path("inicio", views.tela_inicial_logado, name="telaInicio"),
 ]

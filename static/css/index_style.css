@@ -24,6 +24,7 @@
     --grad_a: brown;
     --grad_b: #000;
     --art_cards_box_shadow-color: rgb(0 0 0 / 12%);
+    --error: brown;
 }
 
 .dark-mode:root {
@@ -529,4 +530,21 @@ form #btn {
 
 .show_modal_media_photo img{
     border-radius: 10%;
+}
+
+/*ERRO*/
+
+
+.erro {
+    color: var(--error);
+    font-size: 18px;
+}
+
+.erro_login {
+    margin-top: 15px;
+}
+
+.erro_cadastro {
+    text-align: center;
+    margin-bottom: 15px;
 }

@@ -7,9 +7,20 @@ from django.urls import reverse_lazy
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.hashers import make_password
+from django.contrib import messages
+from django.contrib.auth.decorators import login_required
+from django.db import IntegrityError
 
-class IndexView(TemplateView):
-    template_name = "index.html"
+def tela_inicial(request, mensagem=None):
+    print(mensagem)
+    return render(request, "index.html", mensagem)
+
+def tela_cadastro(request):
+    return render(request, "index_cadastro.html")
+
+@login_required(login_url='index')
+def tela_inicial_logado(request):
+    return render(request, "pos.html")
 
 def login_system(request):
     if request.method == "POST":
@@ -22,7 +33,7 @@ def login_system(request):
             login(request, user)
             return redirect('telaInicio')
         else:
-            return redirect('index')
+            messages.error(request, "Usuário ou senha inválidos!")
     return redirect('index')
     
 
@@ -30,17 +41,20 @@ def cadastro(request):
     if request.method == "POST":
         nome = request.POST.get('name')
         email = request.POST.get('email')
-        cpf = request.POST.get('cpf')
         password = request.POST.get('password')
         selection = request.POST.get('selection')
 
         password = make_password(password)
 
-        aux = User(username=email, password=password)
-        aux.save()
-        user = Usuario(nome=nome, cpf=cpf, tipo_usuario=selection, django_user=aux)
-        user.save()
-    return redirect('index')
-
-def tela_inicial_logado(request):
-    return render(request, "pos.html")
+        try:
+            aux = User(username=email, password=password)
+            aux.save()
+            if selection == "cliente":
+                user = Cliente(nome=nome, django_user=aux)
+                user.save()
+            else:
+                user = Colaborador(nome=nome, django_user=aux)
+                user.save()
+        except IntegrityError:
+            messages.error(request, "E-mail já se encontra em uso.")
+    return redirect('cadastro')
