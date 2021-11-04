@@ -179,6 +179,7 @@ main #colum3{
     display: flex;
     flex-direction: column;
     padding-left: 6px;
+    width: 100%;
 }
 
 .post_information{

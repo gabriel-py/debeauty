@@ -22,10 +22,19 @@ def tela_cadastro(request):
 @login_required(login_url='index')
 def tela_inicial_logado(request):
     try:
-        Cliente.objects.get(django_user=request.user) #se o usuário logado for do tipo cliente, o programa não vai cair no bloco except e retornará a página pos
+        Posts = Post.objects.all()
+        Posts = reversed(Posts)
+        Usuario = Cliente.objects.get(django_user=request.user) #se o usuário logado for do tipo cliente, o programa não vai cair no bloco except e retornará a página pos
+        context = {'posts': Posts, 'usuario': Usuario}
+        print(context)
     except:
-        return render(request, "pos_colaborador.html")
-    return render(request, "pos.html")
+        Posts = Post.objects.all()
+        Posts = reversed(Posts)
+        Usuario = Colaborador.objects.get(django_user=request.user)
+        context = {'posts': Posts, 'usuario': Usuario}
+        return render(request, "pos_colaborador.html", context)
+
+    return render(request, "pos.html", context)
 
 def login_system(request):
     if request.method == "POST":
@@ -69,9 +78,15 @@ def cadastro(request):
 @login_required(login_url='index')
 def cria_novo_post(request):
     if request.method == "POST":
-        conteudo = request.POST.get('conteudo')
-        print(request.user.username)
-        usuario = Usuario.objects.get(django_user=request.user)
-        post = Post.objects.create(conteudo=conteudo, autor=usuario)
-        post.save()
+        try:
+            conteudo = request.POST.get('conteudo')
+            if(conteudo==''):
+                messages.error(request, "Erro ao enviar post. Tente novamente!")
+                return redirect('telaInicio')
+            print(request.user.username)
+            usuario = Usuario.objects.get(django_user=request.user)
+            post = Post.objects.create(conteudo=conteudo, autor=usuario)
+            post.save()
+        except:
+            messages.error(request, "Erro ao enviar post. Tente novamente!")
     return redirect('telaInicio')
