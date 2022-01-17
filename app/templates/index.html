@@ -163,7 +163,7 @@
                             {% endfor %}
                             <form method="POST" action="{% url 'login' %}">
                                 {% csrf_token %}
-                                <input type="text" name="email" placeholder="E-mail" required>
+                                <input type="text" name="email" placeholder="Usuário" required>
                                 <input type="password" name="password" placeholder="Senha" required>
                                 <div class="password_recover">
                                     <a>Esqueceu a senha?</a>

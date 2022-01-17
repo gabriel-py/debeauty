@@ -9,5 +9,3 @@ admin.site.register(Colaborador)
 admin.site.register(Pedido)
 admin.site.register(Solicitacao)
 admin.site.register(Post)
-
-# Register your models here.

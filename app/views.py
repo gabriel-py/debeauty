@@ -21,20 +21,15 @@ def tela_cadastro(request):
 
 @login_required(login_url='index')
 def tela_inicial_logado(request):
-    try:
-        Posts = Post.objects.all()
-        Posts = reversed(Posts)
-        Usuario = Cliente.objects.get(django_user=request.user) #se o usuário logado for do tipo cliente, o programa não vai cair no bloco except e retornará a página pos
-        context = {'posts': Posts, 'usuario': Usuario}
-        print(context)
-    except:
-        Posts = Post.objects.all()
-        Posts = reversed(Posts)
-        Usuario = Colaborador.objects.get(django_user=request.user)
-        context = {'posts': Posts, 'usuario': Usuario}
-        return render(request, "pos_colaborador.html", context)
+    Posts = Post.objects.all()
+    Posts = reversed(Posts)
+    context = {'posts': Posts}
 
-    return render(request, "pos.html", context)
+    if request.user.groups.filter(name__in=['cliente']):
+        return render(request, "pos.html", context)
+
+    if request.user.groups.filter(name__in=['colaborador']):
+        return render(request, "pos_colaborador.html", context)
 
 def login_system(request):
     if request.method == "POST":
