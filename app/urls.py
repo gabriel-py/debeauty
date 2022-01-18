@@ -1,5 +1,7 @@
 from django.urls import path
 from . import views
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path("", views.tela_inicial, name="index"),
@@ -9,4 +11,5 @@ urlpatterns = [
     path("fazer_cadastro", views.cadastro, name="fazer_cadastro"),
     path("inicio", views.tela_inicial_logado, name="telaInicio"),
     path("novo_post", views.cria_novo_post, name="criaNovoPost"),
-]
+    path("novo_pedido", views.tela_novo_pedido, name="criaNovoPedido"),
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

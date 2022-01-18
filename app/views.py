@@ -10,6 +10,7 @@ from django.contrib.auth.hashers import make_password
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.db import IntegrityError
+from django.contrib.auth.models import Group
 
 def tela_inicial(request, mensagem=None):
     if(request.user.is_authenticated):
@@ -22,20 +23,21 @@ def tela_cadastro(request):
 @login_required(login_url='index')
 def tela_inicial_logado(request):
     Posts = Post.objects.all()
-    Posts = reversed(Posts)
-    context = {'posts': Posts}
+    usuario_logado = Usuario.objects.filter(user=request.user)[0]
+    if Posts is not None:
+        Posts = reversed(Posts)
+    context = {'posts': Posts, 'usuario': usuario_logado}
 
     if request.user.groups.filter(name__in=['cliente']):
         return render(request, "pos.html", context)
-
-    if request.user.groups.filter(name__in=['colaborador']):
+    else:
         return render(request, "pos_colaborador.html", context)
 
 def login_system(request):
     if request.method == "POST":
-        email = request.POST.get('email')
+        user = request.POST.get('user')
         password = request.POST.get('password')
-        user = authenticate(username=email, password=password)
+        user = authenticate(username=user, password=password)
         if user is not None:
             login(request, user)
             return redirect('telaInicio')
@@ -50,38 +52,48 @@ def logout_system(request):
 
 def cadastro(request):
     if request.method == "POST":
+        selection = request.POST.get('selection')
+
         nome = request.POST.get('name')
+        sobrenome = request.POST.get('last_name')
+        user = request.POST.get('user')
         email = request.POST.get('email')
         password = request.POST.get('password')
-        selection = request.POST.get('selection')
 
         password = make_password(password)
 
         try:
-            aux = User(username=email, password=password)
-            aux.save()
+            new_user = User(username=user, email=email, password=password)
+            new_user.first_name = nome
+            new_user.last_name = sobrenome
+            new_user.save()
+
+            usuario = Usuario.objects.create(user=new_user)
+
             if selection == "cliente":
-                user = Cliente(nome=nome, django_user=aux)
-                user.save()
+                group = Group.objects.get(name='cliente')
+                new_user.groups.add(group)
+                Cliente.objects.create(usuario=usuario, user=new_user)
             else:
-                user = Colaborador(nome=nome, django_user=aux)
-                user.save()
+                group = Group.objects.get(name='colaborador')
+                new_user.groups.add(group)
+                Colaborador.objects.create(usuario=usuario, user=new_user)
+
         except IntegrityError:
-            messages.error(request, "E-mail já se encontra em uso.")
+            new_user.delete()
+            messages.error(request, "Usuário já se encontra em uso.")
+
     return redirect('cadastro')
 
 @login_required(login_url='index')
 def cria_novo_post(request):
     if request.method == "POST":
-        try:
-            conteudo = request.POST.get('conteudo')
-            if(conteudo==''):
-                messages.error(request, "Erro ao enviar post. Tente novamente!")
-                return redirect('telaInicio')
-            print(request.user.username)
-            usuario = Usuario.objects.get(django_user=request.user)
-            post = Post.objects.create(conteudo=conteudo, autor=usuario)
-            post.save()
-        except:
-            messages.error(request, "Erro ao enviar post. Tente novamente!")
+        usuario = Usuario.objects.filter(user=request.user)
+        conteudo = request.POST.get('conteudo')
+        post = Post.objects.create(conteudo=conteudo, usuario=usuario[0])
+        post.save()
     return redirect('telaInicio')
+
+@login_required(login_url='index')
+def tela_novo_pedido(request):
+    return render(request, "novo_pedido.html")

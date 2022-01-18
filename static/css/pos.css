@@ -389,27 +389,6 @@ main #colum3{
     border-color: var(--feed_border-color);*/
 }
 
-#colum1 #user_info {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    /*background-color: darkviolet;*/
-    padding: 6px;
-}
-
-#colum1 #user_info #user_profile_photo_tela{
-    width: 62px;
-    height: 62px;
-    border-radius: 9999px;
-    cursor: pointer;
-}
-
-#colum1 #user_info #name_user_tela{
-    font-size: 15pt;
-    margin-left: 8px;
-    color: var(--text);
-}
-
 #colum1 #menu_lateral_tela {
     display: flex;
     flex-direction: column;
