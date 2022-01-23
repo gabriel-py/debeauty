@@ -1,8 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
 
-# Create your models here.
-
 class Media(models.Model):
     imagem = models.ImageField()
 
@@ -18,8 +16,7 @@ class Usuario(models.Model):
 
 class Ramo(models.Model):
     nome = models.CharField(max_length=200, null=True)
-    descricao = models.CharField(max_length=200, null=True)
-    icon = models.ImageField()
+    icon = models.ImageField(null=True)
 
     def __str__(self):
         return "{}".format(self.nome)
@@ -58,11 +55,13 @@ class Pedido(models.Model):
         return "{}".format(self.id)
 
 class Solicitacao(models.Model):
-    valor = models.FloatField(blank=False, null=True)
-    faixa_horario = models.CharField(max_length=200, null=True)
+    ramo = models.ForeignKey(Ramo, on_delete=models.PROTECT, null=True)
     descricao = models.CharField(max_length=200, null=True)
-
     media = models.ManyToManyField(Media)
+
+    valor = models.FloatField(blank=False, null=True)
+    horario_inicio = models.TimeField(null=True)
+    horario_fim = models.TimeField(null=True)
     pedido = models.ForeignKey(Pedido, on_delete=models.PROTECT)
     colaborador = models.ForeignKey(Colaborador, on_delete=models.PROTECT, null=True)
 

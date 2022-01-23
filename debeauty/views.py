@@ -98,4 +98,6 @@ def cria_novo_post(request):
 
 @login_required(login_url='index')
 def tela_novo_pedido(request):
-    return render(request, "novo_pedido.html")
+    ramos = Ramo.objects.all()
+    context = {'ramos': ramos}
+    return render(request, "novo_pedido.html", context)

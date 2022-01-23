@@ -121,49 +121,51 @@
             </div>
         </main>
         
-        <script>
-            /*  DARK E LIGHT MODE*/
-            let mode_adjust = document.getElementById("mode_adjust");
-            mode_adjust.addEventListener("click",function(){
-                document.querySelector("HTML").classList.toggle("dark-mode");
-            });
-            /* END */
+        {% block script %}
+            <script>
+                /*  DARK E LIGHT MODE*/
+                let mode_adjust = document.getElementById("mode_adjust");
+                mode_adjust.addEventListener("click",function(){
+                    document.querySelector("HTML").classList.toggle("dark-mode");
+                });
+                /* END */
 
-            /* POST MEDIAS POP UP */
+                /* POST MEDIAS POP UP */
 
-            let medias = document.querySelectorAll(".media");
-            for(let i=0; i<medias.length; i++){
-                medias[i].addEventListener("click",show_modal);
-            }
+                let medias = document.querySelectorAll(".media");
+                for(let i=0; i<medias.length; i++){
+                    medias[i].addEventListener("click",show_modal);
+                }
 
-            let janela_modal = document.getElementById("modal_media_photo");
-            let img_modal = document.getElementById("img_modal");
-            function show_modal(e){
-                let imagem_clicada = e.currentTarget;
-                img_modal.src = imagem_clicada.src;
-                janela_modal.classList.remove("some");
-                janela_modal.classList.add("show_modal_media_photo");
-            }
+                let janela_modal = document.getElementById("modal_media_photo");
+                let img_modal = document.getElementById("img_modal");
+                function show_modal(e){
+                    let imagem_clicada = e.currentTarget;
+                    img_modal.src = imagem_clicada.src;
+                    janela_modal.classList.remove("some");
+                    janela_modal.classList.add("show_modal_media_photo");
+                }
 
-            janela_modal.addEventListener("click",function(){
-                janela_modal.classList.remove("show_modal_media_photo");
-                janela_modal.classList.add("some");
-            });
+                janela_modal.addEventListener("click",function(){
+                    janela_modal.classList.remove("show_modal_media_photo");
+                    janela_modal.classList.add("some");
+                });
 
-            /* END */
+                /* END */
 
-            /* MENU LATERAL */
+                /* MENU LATERAL */
 
-            let menu_lateral = document.getElementById("menu_lateral");
-            /*document.getElementById("icon_menu").addEventListener("click", function(){
-                menu_lateral.classList.remove("some");
-            });
-            document.getElementById("close_menu_lateral").addEventListener("click", function(){
-                menu_lateral.classList.add("some");
-            });*/
+                let menu_lateral = document.getElementById("menu_lateral");
+                /*document.getElementById("icon_menu").addEventListener("click", function(){
+                    menu_lateral.classList.remove("some");
+                });
+                document.getElementById("close_menu_lateral").addEventListener("click", function(){
+                    menu_lateral.classList.add("some");
+                });*/
 
 
-            /* END */
-        </script>
+                /* END */
+            </script>
+        {% endblock %}
     </body>
 </html>

@@ -15,6 +15,60 @@
             margin-bottom: 2%;
             /* background-color: green; */
         }
+        textarea {
+            /* border: none; */
+            width: 100%;
+            height: 100px;
+            font-size: 14pt;
+            outline: none;
+            resize: none;
+            padding: 8px;
+            background-color: var(--body-bg);
+            color: var(--text);
+        }
+        .show_modal{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: var(--modais-bg);
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .show_modal .content {
+            /* width: 600px;
+            height: 300px; */
+            background-color: white;
+            font-size: 12pt;
+            padding: 12pt;
+            border-radius: 20px;
+        }
+
+        #open_modal {
+            float: right;
+        }
+
+        #fecha_modal {
+            font-size: 30px;
+        }
+
+        #modal .content #header {
+            margin-bottom: 5%;
+        }
+
+        #modal .content #button_save {
+            display: flex;
+            flex-direction: row-reverse;
+        }
+
+        .campo_form_solicitacao {
+            margin-bottom: 5%;
+        }
     </style>
 {% endblock %}
 
@@ -66,8 +120,51 @@
 
             </div>
             <div class="form_pedido_linha">
-                <button type="button" class="btn btn-primary">Nova Solicitação</button>
+                <button type="button" class="btn btn-primary" id="nova_solicitacao">Nova Solicitação</button>
             </div>
         </form>
+        <div id="modal" class="show_modal">
+            <div class="content">
+                <div id="header">
+                    <button id="fecha_modal" type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="campo_form_solicitacao">
+                    <label for="select_ramo">Selecione o ramo do serviço que você deseja: </label>
+                    <select name="select_ramo" id="select_ramo" class="form-select form-select-lg mb-3" aria-label="Default select example">
+                        {% for ramo in ramos %}
+                            <option value="{{ ramo.id }}">{{ ramo }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="campo_form_solicitacao">
+                    <textarea placeholder="Descreva o serviço que você deseja e como deseja!" id="myTextarea" name="conteudo_descricao"></textarea>
+                </div>
+                <div class="campo_form_solicitacao">
+                    <label for="media_solicitacao">Se preferir, envie uma imagem que ilustre o serviço desejado: </label>
+                    <input type="file" name="media_solicitacao" id="media_solicitacao">
+                </div>
+                <div id="button_save">
+                    <button type="button" class="btn btn-primary">Salvar</button>
+                </div>
+            </div>
+        </div>
     </section>
+{% endblock %}
+
+{% block script %}
+    <script>
+        let button_nova_solicitacao = document.getElementById("nova_solicitacao");
+        button_nova_solicitacao.addEventListener("click", ()=>{
+            document.getElementById("modal").classList.remove("some");
+            document.getElementById("modal").classList.add("show_modal");
+        })
+
+        let fecha_modal = document.getElementById("fecha_modal");
+        fecha_modal.addEventListener("click", ()=>{
+            document.getElementById("modal").classList.remove("show_modal");
+            document.getElementById("modal").classList.add("some");
+        })
+    </script>
 {% endblock %}
