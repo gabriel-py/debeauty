@@ -1,6 +1,22 @@
 {% extends 'base_logado.html' %}
-
 {% load static %}
+
+{% block import %}
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <style>
+        #novo_pedido {
+            /* background-color: red; */
+        }
+        #form_pedido {
+            padding: 3%;
+        }
+        .form_pedido_linha {
+            margin-bottom: 2%;
+            /* background-color: green; */
+        }
+    </style>
+{% endblock %}
 
 {% block menu_lateral %}
     <section id="colum1" class="">
@@ -24,244 +40,34 @@
 {% endblock %}
 
 {% block content %}
-    <section>
-        
+    <section id="novo_pedido">
+        <form id="form_pedido">
+
+            <div class="form_pedido_linha">
+                <span>Data de realização desejada: </span>
+                <input type="date">
+            </div>
+
+            <div class="form_pedido_linha">
+                <div id="horario_inicial">
+                    <span>Horário inicial: </span>
+                    <input type="time">
+                </div>
+            </div>
+
+            <div class="form_pedido_linha">
+                <div id="horario_final">
+                    <span>Horário final: </span>
+                    <input type="time">
+                </div>
+            </div>
+
+            <div id="solicitacoes" class="form_pedido_linha">
+
+            </div>
+            <div class="form_pedido_linha">
+                <button type="button" class="btn btn-primary">Nova Solicitação</button>
+            </div>
+        </form>
     </section>
 {% endblock %}
-
-<!-- <!DOCTYPE html>
-<html>
-    <head>
-        <title>Novo Pedido</title>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="{% static 'css/novo_pedido.css' %}">
-        <script src="https://kit.fontawesome.com/479f28df58.js" crossorigin="anonymous"></script>
-    </head>
-    <body>
-        <header>
-            <nav>
-                <i class="fas fa-moon fa-2x" id="mode_adjust"></i>
-                <label class="logo"><a href="pos">Debeauty</a></label>
-                <ul>
-                    <li><span id="name_user">Gabriel Gonçalves de Souza Ribeiro</span></li>
-                    <img src="https://pbs.twimg.com/profile_images/1416190244328706050/m6FvCGd7_400x400.jpg" id="user_profile_photo">
-                </ul>
-            </nav>
-        </header>
-        <main>
-            <section id="colum1" class="">
-                <div id="user_info">
-                    <img src="https://pbs.twimg.com/profile_images/1416190244328706050/m6FvCGd7_400x400.jpg" id="user_profile_photo_tela">
-                    <span id="name_user_tela">Gabriel Gonçalves de Souza Ribeiro</span>
-                </div>
-                <div id="menu_lateral_tela">
-                    <div class="menu_lateral_tela_option" id="home_option">
-                        <span class="option"><i class="fas fa-home"></i>Home</span>
-                    </div>
-                    <div class="menu_lateral_tela_option" id="notificacoes_option">
-                        <span class="option"><i class="fas fa-bell"></i>Notificações</span>
-                    </div>
-                    <div class="menu_lateral_tela_option" id="pedidos_option">
-                        <span class="option"><i class="fas fa-air-freshener"></i>Pedidos</span>
-                    </div>
-                </div>
-            </section>
-            <section id="form_pedido">
-                <div class="progress">
-                    <div class="progress_bar">
-                    </div>
-                </div>
-                <div id="form">
-                    <div class="pergunta some" id="1">
-                        <p class="text_superior">Por quais serviços você procura?</p>
-                        <div class="inputs">
-                            <div id="user_interests">
-                                <select name="interest" id="interest">
-                                    <option value="1">Roupas e Vestuário (Feminino)</option>
-                                    <option value="2">Roupas e Vestuário (Masculino)</option>
-                                    <option value="3">Cabelos Femininos</option>
-                                    <option value="4">Cabelos Masculinos e Barba</option>
-                                    <option value="5">Maquiagem</option>
-                                    <option value="6">Unhas</option>
-                                    <option value="7">Tratamentos Estéticos</option>
-                                </select>
-                                <i class="fas fa-plus"></i>
-                            </div>
-                        </div>
-                        <div class="inputs">
-                            <div id="user_interests">
-                                <select name="interest" id="interest">
-                                    <option value="1">Roupas e Vestuário (Feminino)</option>
-                                    <option value="2">Roupas e Vestuário (Masculino)</option>
-                                    <option value="3">Cabelos Femininos</option>
-                                    <option value="4">Cabelos Masculinos e Barba</option>
-                                    <option value="5">Maquiagem</option>
-                                    <option value="6">Unhas</option>
-                                    <option value="7">Tratamentos Estéticos</option>
-                                </select>
-                                <i class="fas fa-plus"></i>
-                            </div>
-                        </div>
-                        <div class="btn">
-                            <i class="fas fa-forward fa-2x"></i>
-                        </div>
-                    </div>
-                    <div class="pergunta" id="2">
-                        <p class="text_superior">Solicitação 1: Cabelos Masculinos e Barba</p>
-                        <div class="inputs">
-                            <p>Se desejar, envie uma foto que ilustre o corte de cabelo que você pretende.</p>
-                            <div class="envio_foto">
-                                <div class="cont">
-                                    <div class="wrapper">
-                                        <div class="image">
-                                        </div>
-                                        <div class="content">
-                                            <div class="icon"><i class="fas fa-cloud-upload-alt"></i></div>
-                                        </div>
-                                        <div id="cancel-btn"><i class="fas fa-times"></i></div>
-                                    </div>
-                                    <input id="default-btn" type="file" hidden>
-                                    <button onclick="defaultBtnActive()" id="custom-btn">Escolha uma foto</button>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="btn">
-                            <i class="fas fa-forward fa-2x"></i>
-                            <i class="fas fa-backward fa-2x"></i>
-                        </div>
-                    </div>
-                </div>
-            </section>
-            <section id="colum3" class="">
-                <div class="card_users_online">
-                    <div id="info">
-                        <span class="text">Usuários Online</span>
-                        <span class="localization"><i class="fas fa-map-marker-alt"></i> <span class="localization__text">Belo Horizonte</span></span>
-                    </div>
-                    <div id="online_users_list">
-                        <div class="online_user">
-                            <img src="https://ava.cefetmg.br/pluginfile.php/67945/user/icon/classic/f1?rev=3034447" class="online_user_img">
-                            <span class="online_user_name">Gabriel Gonçalves de Souza Ribeiro</span>
-                        </div>
-                        <div class="online_user">
-                            <img src="https://ava.cefetmg.br/pluginfile.php/67945/user/icon/classic/f1?rev=3034447" class="online_user_img">
-                            <span class="online_user_name">Gabriel Gonçalves de Souza Ribeiro</span>
-                        </div>
-                        <div class="online_user">
-                            <img src="https://ava.cefetmg.br/pluginfile.php/67945/user/icon/classic/f1?rev=3034447" class="online_user_img">
-                            <span class="online_user_name">Gabriel Gonçalves de Souza Ribeiro</span>
-                        </div>
-                        <div class="online_user">
-                            <img src="https://ava.cefetmg.br/pluginfile.php/67945/user/icon/classic/f1?rev=3034447" class="online_user_img">
-                            <span class="online_user_name">Gabriel Gonçalves de Souza Ribeiro</span>
-                        </div>
-                        <div class="online_user">
-                            <img src="https://ava.cefetmg.br/pluginfile.php/67945/user/icon/classic/f1?rev=3034447" class="online_user_img">
-                            <span class="online_user_name">Gabriel Gonçalves de Souza Ribeiro</span>
-                        </div>
-                        <div class="online_user">
-                            <img src="https://ava.cefetmg.br/pluginfile.php/67945/user/icon/classic/f1?rev=3034447" class="online_user_img">
-                            <span class="online_user_name">Gabriel Gonçalves de Souza Ribeiro</span>
-                        </div>
-                        <div class="online_user">
-                            <img src="https://ava.cefetmg.br/pluginfile.php/67945/user/icon/classic/f1?rev=3034447" class="online_user_img">
-                            <span class="online_user_name">Gabriel Gonçalves de Souza Ribeiro</span>
-                        </div>
-                    </div>
-                </div>
-            </section>
-            <div class="some" id="modal_media_photo">
-                <img src="" id="img_modal">
-            </div>
-            <div id="menu_lateral" class="some">
-                <nav>
-                    <i class="fas fa-times fa-2x" id="close_menu_lateral"></i>
-                    <ul>
-                        <li>Novo Pedido</li>
-                        <li>Dia de Princesa</li>
-                        <li>Histórico</li>
-                    </ul>
-                </nav>
-            </div>
-        </main>
-        <script>
-            /*  DARK E LIGHT MODE*/
-            let mode_adjust = document.getElementById("mode_adjust");
-            mode_adjust.addEventListener("click",function(){
-                document.querySelector("HTML").classList.toggle("dark-mode");
-            });
-            /* END */
-
-            /* POST MEDIAS POP UP */
-
-            let medias = document.querySelectorAll(".media");
-            for(let i=0; i<medias.length; i++){
-                medias[i].addEventListener("click",show_modal);
-            }
-
-            let janela_modal = document.getElementById("modal_media_photo");
-            let img_modal = document.getElementById("img_modal");
-            function show_modal(e){
-                let imagem_clicada = e.currentTarget;
-                img_modal.src = imagem_clicada.src;
-                janela_modal.classList.remove("some");
-                janela_modal.classList.add("show_modal_media_photo");
-            }
-
-            janela_modal.addEventListener("click",function(){
-                janela_modal.classList.remove("show_modal_media_photo");
-                janela_modal.classList.add("some");
-            });
-
-            /* END */
-
-            /* MENU LATERAL */
-
-            let menu_lateral = document.getElementById("menu_lateral");
-            document.getElementById("icon_menu").addEventListener("click", function(){
-                menu_lateral.classList.remove("some");
-            });
-            document.getElementById("close_menu_lateral").addEventListener("click", function(){
-                menu_lateral.classList.add("some");
-            });
-
-
-            /* END */
-
-            /* FORM ENVIO FOTO*/
-            const defaultBtn = document.querySelector("#default-btn");
-            const customBtn = document.querySelector("#custom-btn");
-            const image = document.querySelector(".image");
-            const cancelBtn = document.querySelector("#cancel-btn");
-
-            function defaultBtnActive(){
-                defaultBtn.click();
-            }
-
-            defaultBtn.addEventListener("change", function(){
-                const file = this.files[0];
-                if(file){
-                    const reader = new FileReader();
-                    reader.onload = function(){
-                        const result = reader.result;
-                        let img = document.createElement("img");
-                        img.src = result;
-                        if(image.firstChild!=null){
-                            image.firstChild.remove();
-                        }
-                        image.appendChild(img);
-                        cancelBtn.style.display = 'flex';
-                    }
-                    reader.readAsDataURL(file);
-                }
-            });
-
-            cancelBtn.addEventListener("click", function(){
-                image.firstChild.remove();
-                cancelBtn.style.display = 'none';
-            });
-            /* END */
-        </script>
-    </body>
-</html> -->

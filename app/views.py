@@ -1,6 +1,8 @@
 from django.shortcuts import render
 from django.views.generic import TemplateView
 from django.views.generic.edit import CreateView
+
+from app.forms import NovoPedido
 from .models import *
 from django.contrib.auth.models import User
 from django.urls import reverse_lazy
@@ -11,6 +13,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.db import IntegrityError
 from django.contrib.auth.models import Group
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 
 def tela_inicial(request, mensagem=None):
     if(request.user.is_authenticated):

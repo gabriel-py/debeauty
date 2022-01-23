@@ -78,4 +78,4 @@ class Post(models.Model):
     usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE, related_name='person2post')
 
     def __str__(self):
-        return "Post {} de {}".format(self.id, self.autor)
+        return "Post {} de {}".format(self.id, self.usuario.user.username)
