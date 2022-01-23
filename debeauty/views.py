@@ -1,8 +1,7 @@
 from django.shortcuts import render
 from django.views.generic import TemplateView
-from django.views.generic.edit import CreateView
+from django.views.generic.edit import BaseCreateView
 
-from app.forms import NovoPedido
 from .models import *
 from django.contrib.auth.models import User
 from django.urls import reverse_lazy

@@ -79,3 +79,11 @@ class Post(models.Model):
 
     def __str__(self):
         return "Post {} de {}".format(self.id, self.usuario.user.username)
+
+class colaborador_pedido(models.Model):
+    solicitacao = models.ForeignKey(Solicitacao, on_delete=models.CASCADE)
+    colaborador = models.ForeignKey(Colaborador, on_delete=models.CASCADE)
+    resposta = models.BooleanField(null=True)
+
+    def __str__(self):
+        return "Colaborador {} deu para o pedido {} a resposta".format(self.colaborador, self.solicitacao, self.resposta)
