@@ -103,17 +103,11 @@
             </div>
 
             <div class="form_pedido_linha">
-                <div id="horario_inicial">
-                    <span>Horário inicial: </span>
-                    <input type="time">
-                </div>
+                <button type="button" class="btn btn-success" id="salvar_pedido">Salvar Pedido</button>
             </div>
 
             <div class="form_pedido_linha">
-                <div id="horario_final">
-                    <span>Horário final: </span>
-                    <input type="time">
-                </div>
+                <span>Seu pedido foi salvo e a ele foi atribuido o código #7456. Quando desejar, adicione solicitações a ele clicando abaixo.</span>
             </div>
 
             <div id="solicitacoes" class="form_pedido_linha">
@@ -123,7 +117,7 @@
                 <button type="button" class="btn btn-primary" id="nova_solicitacao">Nova Solicitação</button>
             </div>
         </form>
-        <div id="modal" class="show_modal">
+        <div id="modal" class="some">
             <div class="content">
                 <div id="header">
                     <button id="fecha_modal" type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -163,6 +157,12 @@
 
         let fecha_modal = document.getElementById("fecha_modal");
         fecha_modal.addEventListener("click", ()=>{
+            document.getElementById("modal").classList.remove("show_modal");
+            document.getElementById("modal").classList.add("some");
+        })
+
+        let salvar_pedido = document.getElementById("salvar_pedido");
+        salvar_pedido.addEventListener("click", ()=>{
             document.getElementById("modal").classList.remove("show_modal");
             document.getElementById("modal").classList.add("some");
         })
