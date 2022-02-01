@@ -58,6 +58,17 @@ DATABASES = {
     }
 }
 
+"""DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'debeauty',
+        'HOST': 'mysql-prod.vp6.com.br',
+        'USER': 'root',
+        'PASSWORD': '',
+        'PORT': '3306'
+    },
+}"""
+
 AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
