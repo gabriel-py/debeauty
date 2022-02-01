@@ -97,24 +97,24 @@
     <section id="novo_pedido">
         <form id="form_pedido">
 
-            <div class="form_pedido_linha">
+            <div class="form_pedido_linha" id="data_realizacao_pedido">
                 <span>Data de realização desejada: </span>
-                <input type="date">
+                <input type="date" id="date_picker">
             </div>
 
             <div class="form_pedido_linha">
-                <button type="button" class="btn btn-success" id="salvar_pedido">Salvar Pedido</button>
+                <button type="button" class="btn btn-success" id="salvar_pedido">Confirmar Data</button>
             </div>
 
             <div class="form_pedido_linha">
-                <span>Seu pedido foi salvo e a ele foi atribuido o código #7456. Quando desejar, adicione solicitações a ele clicando abaixo.</span>
+                <span id="mensagem_retorno"></span>
             </div>
 
             <div id="solicitacoes" class="form_pedido_linha">
 
             </div>
             <div class="form_pedido_linha">
-                <button type="button" class="btn btn-primary" id="nova_solicitacao">Nova Solicitação</button>
+                <button type="button" class="btn btn-primary some" id="nova_solicitacao">Nova Solicitação</button>
             </div>
         </form>
         <div id="modal" class="some">
@@ -163,8 +163,25 @@
 
         let salvar_pedido = document.getElementById("salvar_pedido");
         salvar_pedido.addEventListener("click", ()=>{
-            document.getElementById("modal").classList.remove("show_modal");
-            document.getElementById("modal").classList.add("some");
+            let date_picker = document.getElementById("date_picker");
+            let data = date_picker.value;
+            let url = '/salva_pedido?data='+data;
+            let xhr = new XMLHttpRequest();
+            xhr.open('GET', url);
+            xhr.onreadystatechange = () => {
+                if(xhr.readyState == 4) {
+                    if(xhr.status == 200) {
+                        let resposta = xhr.responseText;
+                        resposta = JSON.parse(resposta);
+                        document.getElementById("mensagem_retorno").innerHTML = resposta["response"];
+                        document.getElementById("data_realizacao_pedido").classList.add("some");
+                        document.getElementById("salvar_pedido").classList.add("some");
+                        document.getElementById("salvar_pedido").classList.add("some");
+                        document.getElementById("nova_solicitacao").classList.remove("some");
+                    }
+                }
+            };
+            xhr.send();
         })
     </script>
 {% endblock %}

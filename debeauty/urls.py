@@ -14,4 +14,5 @@ urlpatterns = [
     path("inicio", views.tela_inicial_logado, name="telaInicio"),
     path("novo_post", views.cria_novo_post, name="criaNovoPost"),
     path("novo_pedido", views.tela_novo_pedido, name="criaNovoPedido"),
+    path("salva_pedido", views.salva_pedido, name="salva_pedido"),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

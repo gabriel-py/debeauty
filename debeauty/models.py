@@ -29,7 +29,7 @@ class Cliente(models.Model):
     ramos_interesse = models.ManyToManyField(Ramo)
 
     def __str__(self):
-        return "{}".format(self.user.name)
+        return "{}".format(self.user)
 
 class Colaborador(models.Model):
     endereco_profissional = models.CharField(max_length=200, null=True)
@@ -44,10 +44,8 @@ class Colaborador(models.Model):
 
 class Pedido(models.Model):
     cod_status = models.IntegerField(blank=False, null=False)
-    valor_total = models.FloatField(blank=False, null=False)
+    valor = models.FloatField(null=True)
     data_realizacao_desejada = models.DateField()
-    horario_inicio = models.TimeField()
-    horario_fim = models.TimeField()
 
     solicitante = models.ForeignKey(Cliente, on_delete=models.PROTECT, null=False)
 
