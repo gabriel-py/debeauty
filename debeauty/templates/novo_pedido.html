@@ -70,6 +70,7 @@
             margin-bottom: 5%;
         }
     </style>
+    <link rel="stylesheet" href="{% static 'css/historico.css' %}">
 {% endblock %}
 
 {% block menu_lateral %}
@@ -110,8 +111,16 @@
                 <span id="mensagem_retorno"></span>
             </div>
 
-            <div id="solicitacoes" class="form_pedido_linha">
-
+            <div id="solicitacoes" class="form_pedido_linha some">
+                <!--<div class="pedido">
+                    <div class="tit_pedido">
+                        <i class="fas fa-circle"></i> Pedido <span class="num_pedido">487544785</span>
+                    </div>
+                    <div class="category info">Roupas e vestuário</div>
+                    <div class="data_pedido info">Realizado em <span class="real_data_pedido">25/05/2021</span></div>
+                    <div class="situacao_pedido info">Concluído</div>
+                    <div class="valor_estimado info">R$ 72,00</div>
+                </div>-->
             </div>
             <div class="form_pedido_linha">
                 <button type="button" class="btn btn-primary some" id="nova_solicitacao">Nova Solicitação</button>
@@ -140,7 +149,7 @@
                     <input type="file" name="media_solicitacao" id="media_solicitacao">
                 </div>
                 <div id="button_save">
-                    <button type="button" class="btn btn-primary">Salvar</button>
+                    <button type="button" class="btn btn-primary" id="salva_solicitacao">Salvar</button>
                 </div>
             </div>
         </div>
@@ -173,11 +182,58 @@
                     if(xhr.status == 200) {
                         let resposta = xhr.responseText;
                         resposta = JSON.parse(resposta);
-                        document.getElementById("mensagem_retorno").innerHTML = resposta["response"];
+                        let mensagem = "Seu pedido foi salvo e a ele foi atribuido o código " + resposta["response"] + ". Quando desejar, adicione solicitações a ele clicando abaixo."
+                        document.getElementById("mensagem_retorno").innerHTML = mensagem;
                         document.getElementById("data_realizacao_pedido").classList.add("some");
                         document.getElementById("salvar_pedido").classList.add("some");
                         document.getElementById("salvar_pedido").classList.add("some");
                         document.getElementById("nova_solicitacao").classList.remove("some");
+                        localStorage.setItem("id_pedido",resposta["response"]);
+                    }
+                }
+            };
+            xhr.send();
+        })
+
+        let salvar_solicitacao = document.getElementById("salva_solicitacao");
+        salvar_solicitacao.addEventListener("click", ()=>{
+            let select_ramo = document.getElementById("select_ramo");
+            let ramo = select_ramo.value;
+
+            let conteudo_descricao = document.getElementById("myTextarea");
+            let descricao = conteudo_descricao.value;
+            conteudo_descricao.value = '';
+
+            let id_pedido = localStorage.getItem("id_pedido");
+
+            let media_solicitacao = document.getElementById("media_solicitacao");
+            let media = media_solicitacao.value;
+            media_solicitacao.value = '';
+
+            let url = '?ramo='+ramo+'&descricao='+descricao+'&id_pedido='+id_pedido+'&media='+media;
+            let xhr = new XMLHttpRequest();
+            xhr.open('GET', '/salva_solicitacao'+url, true);
+            xhr.onreadystatechange = () => {
+                if(xhr.readyState == 4) {
+                    if(xhr.status == 200) {
+                        let resposta = xhr.responseText;
+                        resposta = JSON.parse(resposta);
+                        resposta = resposta["response"]
+                        fecha_modal.click()
+                        document.getElementById("solicitacoes").classList.remove("some");
+
+                        let div_pedido = "<div class='pedido'>";
+                        div_pedido += "<div class='tit_pedido'>";
+                        div_pedido += "<i class='fas fa-circle'></i> Pedido <span class='num_pedido'>"+resposta["pedido"]+"</span>";
+                        div_pedido += "</div>"
+                        div_pedido += "<div class='category info'>"+resposta["ramo"]+"</div>"
+                        div_pedido += "<div class='data_pedido info'>Realizado em <span class='real_data_pedido'>"+resposta["data"]+"</span></div>"
+                        div_pedido += "<div class='situacao_pedido info'>"+resposta["status"]+"</div>"
+                        div_pedido += "</div>"
+                        
+
+                        document.getElementById("solicitacoes").innerHTML += div_pedido;
+                        document.getElementById("mensagem_retorno").classList.add("some");
                     }
                 }
             };

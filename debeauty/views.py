@@ -14,6 +14,7 @@ from django.db import IntegrityError
 from django.contrib.auth.models import Group
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.http import JsonResponse
+from datetime import datetime
 
 def tela_inicial(request, mensagem=None):
     if(request.user.is_authenticated):
@@ -104,20 +105,43 @@ def tela_novo_pedido(request):
     return render(request, "novo_pedido.html", context)
 
 @login_required(login_url='index')
+def tela_historico(request):
+    #ramos = Ramo.objects.all()
+    #context = {'ramos': ramos}
+    return render(request, "historico.html")
+
+@login_required(login_url='index')
 def salva_pedido(request):
     print(request.GET["data"])
     cliente = Cliente.objects.filter(user=request.user)[0]
     pedido = Pedido.objects.create(data_realizacao_desejada=request.GET["data"], solicitante=cliente, cod_status=0)
-    mensagem = "Seu pedido foi salvo e a ele foi atribuido o código " + str(pedido.id) + ". Quando desejar, adicione solicitações a ele clicando abaixo."
-    return JsonResponse({"response":mensagem}, safe=False)
+    pedido.save()
+    id_pedido = str(pedido.id)
+    return JsonResponse({"response":id_pedido}, safe=False)
 
 @login_required(login_url='index')
 def salva_solicitacao(request):
-    ramo = Ramo.objects.filter(id=request.GET["id_ramo"])
+    ramo = Ramo.objects.get(id=request.GET["ramo"])
+    print(ramo)
     descricao = request.GET["descricao"]
+    print(request.GET["id_pedido"])
+    pedido = Pedido.objects.get(id=request.GET["id_pedido"])
+    print(pedido)
     media = request.GET["media"]
-    media = Media.objects.create(url=media)
-    pedido = Pedido.objects.filter(id=request.GET["pedido"])
-    Solicitacao.objects.create(ramo=ramo, descricao=descricao, media=media, pedido=pedido)
-    mensagem = "Sua solicitação foi cadastrada com sucesso. Aguarde pela resposta de um de nossos colaboradores!"
-    return JsonResponse({"response":mensagem}, safe=False)
+    data_pedido = datetime.today().strftime('%Y-%m-%d')
+
+    solicitacao = Solicitacao.objects.create(ramo=ramo, descricao=descricao, media=media, pedido=pedido, cod_status=0, data_pedido=data_pedido)
+    solicitacao.save()
+
+    data_retorno = datetime.today().strftime('%d/%m/%Y')
+
+    retorno = {
+        "ramo": ramo.nome,
+        "pedido": request.GET["id_pedido"],
+        "descricao": request.GET["descricao"],
+        "media": request.GET["media"],
+        "mensagem": "success",
+        "status": "Em análise",
+        "data": data_retorno
+    }
+    return JsonResponse({"response":retorno}, safe=False)

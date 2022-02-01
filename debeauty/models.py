@@ -55,13 +55,15 @@ class Pedido(models.Model):
 class Solicitacao(models.Model):
     ramo = models.ForeignKey(Ramo, on_delete=models.PROTECT, null=True)
     descricao = models.CharField(max_length=200, null=True)
-    media = models.ManyToManyField(Media)
+    media = models.ImageField(null=True)
+    data_pedido = models.DateField()
 
     valor = models.FloatField(blank=False, null=True)
     horario_inicio = models.TimeField(null=True)
     horario_fim = models.TimeField(null=True)
     pedido = models.ForeignKey(Pedido, on_delete=models.PROTECT)
     colaborador = models.ForeignKey(Colaborador, on_delete=models.PROTECT, null=True)
+    cod_status = models.IntegerField(blank=False, null=False)
 
     def __str__(self):
         return "{}".format(self.id)
