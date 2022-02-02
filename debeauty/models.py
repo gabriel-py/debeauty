@@ -40,7 +40,7 @@ class Colaborador(models.Model):
     ramos_atuacao = models.ManyToManyField(Ramo)
 
     def __str__(self):
-        return "{}".format(self.user.name)
+        return "{}".format(self.user.first_name)
 
 class Pedido(models.Model):
     cod_status = models.IntegerField(blank=False, null=False)
@@ -55,7 +55,7 @@ class Pedido(models.Model):
 class Solicitacao(models.Model):
     ramo = models.ForeignKey(Ramo, on_delete=models.PROTECT, null=True)
     descricao = models.CharField(max_length=200, null=True)
-    media = models.ImageField(null=True)
+    media = models.ManyToManyField(Media)
     data_pedido = models.DateField()
 
     valor = models.FloatField(blank=False, null=True)

@@ -26,6 +26,19 @@
         </header>
         <main>
             {% block menu_lateral %}
+                <section id="colum1" class="">
+                    <div id="menu_lateral_tela">
+                        <div class="menu_lateral_tela_option" id="home_option">
+                            <span class="option"><i class="fas fa-home"></i>Home</span>
+                        </div>
+                        <div class="menu_lateral_tela_option" id="notificacoes_option">
+                            <span class="option"><i class="fas fa-bell"></i>Notificações</span>
+                        </div>
+                        <div class="menu_lateral_tela_option" id="pedidos_option">
+                            <span class="option"><i class="fas fa-air-freshener"></i>Pedidos</span>
+                        </div>
+                    </div>
+                </section>
             {% endblock %}
 
             {% block content %}
@@ -41,8 +54,6 @@
                                 <div class="post_body">
                                     <div class="post_information">
                                         <span class="name_colaborador">{{ post.usuario }}</span>
-                                        <span class="localization"><i class="fas fa-map-marker-alt"></i> <span class="localization__text">Belo Horizonte</span></span>
-                                        <span class="category"><i class="fas fa-tshirt"></i> <span class="category__text">Cabelo Masculino e Barba</span></span>
                                     </div>
                                     <div class="post_content">
                                         <span>{{ post.conteudo }}</span>

@@ -1,6 +1,190 @@
+{% extends 'base_logado.html' %}
 {% load static %}
 
-<!DOCTYPE html>
+{% block import %}
+    <link rel="stylesheet" href="{% static 'css/historico.css' %}">
+    <script src="https://kit.fontawesome.com/479f28df58.js" crossorigin="anonymous"></script>
+{% endblock %}
+
+{% block content %}
+    {% if solicitacoes %}
+        <section id="pedidos">
+            <h1>Pedidos para analisar</h1>
+            <div id="novos_pedidos">
+                {% for solicitacao in solicitacoes %}
+                    <div class="pedido" id="{{ solicitacao.id }}">
+                        <div class="tit_pedido">
+                            <i class="fas fa-circle"></i> Solicitação <span class="num_pedido">{{ solicitacao.id }}</span>
+                        </div>
+                        <div class="category info">{{ solicitacao.ramo }}</div>
+                        <div class="data_pedido info">Realizado em <span class="real_data_pedido">{{ solicitacao.data_pedido }}</span></div>
+                        <div class="situacao_pedido info">Aguardando resposta</div>
+                    </div>
+                {% endfor %}
+            </div>
+            <h1 id="h1_historico">Histórico</h1>
+            <div id="historico">
+                <div class="pedido">
+                    <div class="tit_pedido">
+                        <i class="fas fa-circle"></i> Pedido <span class="num_pedido">487544785</span>
+                    </div>
+                    <div class="category info">
+                        Roupas e vestuário
+                    </div>
+                    <div class="data_pedido info">
+                        Realizado em <span class="real_data_pedido">25/05/2021</span>
+                    </div>
+                    <div class="situacao_pedido info">
+                        Concluído
+                    </div>
+                    <div class="valor_estimado info">
+                        R$ 72,00
+                    </div>
+                </div>
+                <div class="pedido">
+                    <div class="tit_pedido">
+                        <i class="fas fa-circle"></i> Pedido <span class="num_pedido">487544785</span>
+                    </div>
+                    <div class="category info">
+                        Roupas e vestuário
+                    </div>
+                    <div class="data_pedido info">
+                        Realizado em <span class="real_data_pedido">25/05/2021</span>
+                    </div>
+                    <div class="situacao_pedido info">
+                        Concluído
+                    </div>
+                    <div class="valor_estimado info">
+                        R$ 72,00
+                    </div>
+                </div>
+            </div>
+        </section>
+        <div class="some" id="modal_media_pedido">
+            <div id="modal_pedido_content">
+                <div id="pedido_info">
+                    <img src="" class="profile_photo" id="client_profile_photo">
+                    <div class="pedido_body">
+                        <div class="pedido_information">
+                            <span class="name_cliente" id="name_cliente">Gabriel Cunha</span>
+                        </div>
+                        <div class="pedido_description" id="pedido_description">
+                            <span>Meu cabelo atualmente está como na primeira foto e gostaria que ele ficasse parecido com o cabelo do modelo da segunda.</span>
+                        </div>
+                        <div class="pedido_media" id="solicitacao_media">
+                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT3bBxkIGgOP8gxTNblkN-xtdm79iCOT9Pzrw&usqp=CAU" class="media">
+                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT3bBxkIGgOP8gxTNblkN-xtdm79iCOT9Pzrw&usqp=CAU" class="media">
+                        </div>
+                    </div>
+                </div>
+                <div id="pedido_options">
+                    <input type="submit" value="Recusar" class="btn_option" id="btn_recusar">
+                    <input type="submit" value="Aceitar" class="btn_option" id="btn_aceitar">
+                </div>
+            </div>
+        </div>
+    {% endif %}
+{% endblock %}
+
+
+{% block script %}
+    <script>
+        /*  DARK E LIGHT MODE*/
+        let mode_adjust = document.getElementById("mode_adjust");
+        mode_adjust.addEventListener("click",function(){
+            document.querySelector("HTML").classList.toggle("dark-mode");
+        });
+        /* END */
+
+        /* POST MEDIAS POP UP */
+
+        let medias = document.querySelectorAll(".pedido");
+        for(let i=0; i<medias.length; i++){
+            medias[i].addEventListener("click",show_modal);
+        }
+
+        let janela_modal = document.getElementById("modal_media_pedido");
+        function show_modal(e){
+            console.log(e.target)
+            id_solicitacao = e.target.id;
+            alert(id_solicitacao)
+            let url = '/get_solicitacao_informations?id='+id_solicitacao;
+            let xhr = new XMLHttpRequest();
+            xhr.open('GET', url);
+            xhr.onreadystatechange = () => {
+                if(xhr.readyState == 4) {
+                    if(xhr.status == 200) {
+                        let resposta = xhr.responseText;
+                        resposta = JSON.parse(resposta);
+                        document.getElementById("client_profile_photo").src = resposta["client_profile_photo"];
+                        document.getElementById("name_cliente").innerHTML = resposta["name_cliente"];
+                        document.getElementById("pedido_description").innerHTML = resposta["pedido_description"];
+                        document.getElementById("solicitacao_media").innerHTML = resposta["solicitacao_media"];
+                    }
+                }
+            };
+            xhr.send();
+            janela_modal.classList.remove("some");
+            janela_modal.classList.add("show_modal_media_photo");
+        }
+
+        janela_modal.addEventListener("click",function(){
+            janela_modal.classList.remove("show_modal_media_photo");
+            janela_modal.classList.add("some");
+        });
+
+        /* END */
+
+        /* MENU LATERAL */
+
+        let menu_lateral = document.getElementById("menu_lateral");
+        document.getElementById("icon_menu").addEventListener("click", function(){
+            menu_lateral.classList.remove("some");
+        });
+        document.getElementById("close_menu_lateral").addEventListener("click", function(){
+            menu_lateral.classList.add("some");
+        });
+
+
+        /* END */
+
+        /* FORM ENVIO FOTO*/
+        const defaultBtn = document.querySelector("#default-btn");
+        const customBtn = document.querySelector("#custom-btn");
+        const image = document.querySelector(".image");
+        const cancelBtn = document.querySelector("#cancel-btn");
+
+        function defaultBtnActive(){
+            defaultBtn.click();
+        }
+
+        defaultBtn.addEventListener("change", function(){
+            const file = this.files[0];
+            if(file){
+                const reader = new FileReader();
+                reader.onload = function(){
+                    const result = reader.result;
+                    let img = document.createElement("img");
+                    img.src = result;
+                    if(image.firstChild!=null){
+                        image.firstChild.remove();
+                    }
+                    image.appendChild(img);
+                    cancelBtn.style.display = 'flex';
+                }
+                reader.readAsDataURL(file);
+            }
+        });
+
+        cancelBtn.addEventListener("click", function(){
+            image.firstChild.remove();
+            cancelBtn.style.display = 'none';
+        });
+        /* END */
+    </script>
+{% endblock %}
+
+<!--<!DOCTYPE html>
 <html>
     <head>
         <title>Novo Pedido</title>
@@ -22,10 +206,10 @@
         </header>
         <main>
             <section id="colum1" class="">
-                <!-- <div id="user_info">
+                <div id="user_info">
                     <img src="https://pbs.twimg.com/profile_images/1416190244328706050/m6FvCGd7_400x400.jpg" id="user_profile_photo_tela">
                     <span id="name_user_tela">Gabriel Gonçalves de Souza Ribeiro</span>
-                </div> -->
+                </div>
                 <div id="menu_lateral_tela">
                     <div class="menu_lateral_tela_option" id="home_option">
                         <span class="option"><i class="fas fa-home"></i>Home</span>
@@ -36,87 +220,12 @@
                     <div class="menu_lateral_tela_option" id="pedidos_option">
                         <span class="option"><i class="fas fa-air-freshener"></i>Pedidos</span>
                     </div>
-                    <!--<div class="menu_lateral_tela_option" id="btn_faixa">
+                    <div class="menu_lateral_tela_option" id="btn_faixa">
                         <input type="submit" value="Novo pedido" id="btn">
-                    </div>-->
-                </div>
-            </section>
-            <section id="pedidos">
-                <h1>Pedidos para analisar</h1>
-                <div id="novos_pedidos">
-                    <div class="pedido">
-                        <div class="tit_pedido">
-                            <i class="fas fa-circle"></i> Pedido <span class="num_pedido">487544785</span>
-                        </div>
-                        <div class="category info">
-                            Cabelo Masculino
-                        </div>
-                        <div class="data_pedido info">
-                            Realizado em <span class="real_data_pedido">25/05/2021</span>
-                        </div>
-                        <div class="situacao_pedido info">
-                            Aguardando resposta
-                        </div>
-                        <div class="valor_estimado info">
-                            R$ 72,00
-                        </div>
-                    </div>
-                    <div class="pedido">
-                        <div class="tit_pedido">
-                            <i class="fas fa-circle"></i> Pedido <span class="num_pedido">487544785</span>
-                        </div>
-                        <div class="category info">
-                            Cabelo Masculino
-                        </div>
-                        <div class="data_pedido info">
-                            Realizado em <span class="real_data_pedido">25/05/2021</span>
-                        </div>
-                        <div class="situacao_pedido info">
-                            Aguardando resposta
-                        </div>
-                        <div class="valor_estimado info">
-                            R$ 72,00
-                        </div>
-                    </div>
-                </div>
-                <h1 id="h1_historico">Histórico</h1>
-                <div id="historico">
-                    <div class="pedido">
-                        <div class="tit_pedido">
-                            <i class="fas fa-circle"></i> Pedido <span class="num_pedido">487544785</span>
-                        </div>
-                        <div class="category info">
-                            Roupas e vestuário
-                        </div>
-                        <div class="data_pedido info">
-                            Realizado em <span class="real_data_pedido">25/05/2021</span>
-                        </div>
-                        <div class="situacao_pedido info">
-                            Concluído
-                        </div>
-                        <div class="valor_estimado info">
-                            R$ 72,00
-                        </div>
-                    </div>
-                    <div class="pedido">
-                        <div class="tit_pedido">
-                            <i class="fas fa-circle"></i> Pedido <span class="num_pedido">487544785</span>
-                        </div>
-                        <div class="category info">
-                            Roupas e vestuário
-                        </div>
-                        <div class="data_pedido info">
-                            Realizado em <span class="real_data_pedido">25/05/2021</span>
-                        </div>
-                        <div class="situacao_pedido info">
-                            Concluído
-                        </div>
-                        <div class="valor_estimado info">
-                            R$ 72,00
-                        </div>
                     </div>
                 </div>
             </section>
+            
             <section id="colum3" class="">
                 <div class="card_users_online">
                     <div id="info">
@@ -190,80 +299,6 @@
                 </div>
             </div>
         </div>
-        <script>
-            /*  DARK E LIGHT MODE*/
-            let mode_adjust = document.getElementById("mode_adjust");
-            mode_adjust.addEventListener("click",function(){
-                document.querySelector("HTML").classList.toggle("dark-mode");
-            });
-            /* END */
-
-            /* POST MEDIAS POP UP */
-
-            let medias = document.querySelectorAll(".pedido");
-            for(let i=0; i<medias.length; i++){
-                medias[i].addEventListener("click",show_modal);
-            }
-
-            let janela_modal = document.getElementById("modal_media_pedido");
-            function show_modal(e){
-                janela_modal.classList.remove("some");
-                janela_modal.classList.add("show_modal_media_photo");
-            }
-
-            janela_modal.addEventListener("click",function(){
-                janela_modal.classList.remove("show_modal_media_photo");
-                janela_modal.classList.add("some");
-            });
-
-            /* END */
-
-            /* MENU LATERAL */
-
-            let menu_lateral = document.getElementById("menu_lateral");
-            document.getElementById("icon_menu").addEventListener("click", function(){
-                menu_lateral.classList.remove("some");
-            });
-            document.getElementById("close_menu_lateral").addEventListener("click", function(){
-                menu_lateral.classList.add("some");
-            });
-
-
-            /* END */
-
-            /* FORM ENVIO FOTO*/
-            const defaultBtn = document.querySelector("#default-btn");
-            const customBtn = document.querySelector("#custom-btn");
-            const image = document.querySelector(".image");
-            const cancelBtn = document.querySelector("#cancel-btn");
-
-            function defaultBtnActive(){
-                defaultBtn.click();
-            }
-
-            defaultBtn.addEventListener("change", function(){
-                const file = this.files[0];
-                if(file){
-                    const reader = new FileReader();
-                    reader.onload = function(){
-                        const result = reader.result;
-                        let img = document.createElement("img");
-                        img.src = result;
-                        if(image.firstChild!=null){
-                            image.firstChild.remove();
-                        }
-                        image.appendChild(img);
-                        cancelBtn.style.display = 'flex';
-                    }
-                    reader.readAsDataURL(file);
-                }
-            });
-
-            cancelBtn.addEventListener("click", function(){
-                image.firstChild.remove();
-                cancelBtn.style.display = 'none';
-            });
-            /* END */
-        </script>
+        
     </body>
-</html>
+</html>-->

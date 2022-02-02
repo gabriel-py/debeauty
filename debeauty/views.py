@@ -27,7 +27,7 @@ def tela_cadastro(request):
 @login_required(login_url='index')
 def tela_inicial_logado(request):
     Posts = Post.objects.all()
-    usuario_logado = Usuario.objects.filter(user=request.user)[0]
+    usuario_logado = Usuario.objects.get(user=request.user)
     if Posts is not None:
         Posts = reversed(Posts)
     context = {'posts': Posts, 'usuario': usuario_logado}
@@ -106,9 +106,23 @@ def tela_novo_pedido(request):
 
 @login_required(login_url='index')
 def tela_historico(request):
-    #ramos = Ramo.objects.all()
-    #context = {'ramos': ramos}
-    return render(request, "historico.html")
+    ColObj = Colaborador.objects.get(user=request.user)
+    print(ColObj)
+    try:
+        ColObj = Colaborador.objects.get(user=request.user)
+    except:
+        return JsonResponse({"response":"Usuario nao possui acesso a esta pagina."}, safe=False)
+
+    ramosQuery = (ColObj.ramos_atuacao.all())
+    solicitacoes = []
+
+    for ramo in ramosQuery:
+        solicit = Solicitacao.objects.filter(ramo=ramo)
+        for solicitObj in solicit:
+            solicitacoes.append(solicitObj)
+
+    context = {'solicitacoes': solicitacoes}
+    return render(request, "historico.html", context=context)
 
 @login_required(login_url='index')
 def salva_pedido(request):
