@@ -2,11 +2,15 @@
 
 {% load static %}
 
+{% block import %}
+    <script src="https://kit.fontawesome.com/479f28df58.js" crossorigin="anonymous"></script>
+{% endblock %}
+
 {% block menu_lateral %}
     <section id="colum1" class="">
         <div id="menu_lateral_tela">
             <div class="menu_lateral_tela_option" id="home_option">
-                <span class="option"><i class="fas fa-home"></i>Home</span>
+                <span class="option"><i class="fas fa-home"></i><a href="{% url 'telaInicio' %}" style="text-decoration: none; color: var(--text);">Home</a></span>
             </div>
             <div class="menu_lateral_tela_option" id="notificacoes_option">
                 <span class="option"><i class="fas fa-bell"></i>Notificações</span>
@@ -15,7 +19,7 @@
                 <span class="option"><i class="fas fa-air-freshener"></i>Pedidos</span>
             </div>
             <div class="menu_lateral_tela_option" id="pedidos_option">
-                <span class="option"><i class="fas fa-air-freshener"></i><a href="{% url 'criaNovoPedido' %}">Novo pedido</a></span>
+                <span class="option"><i class="fas fa-plus"></i><a href="{% url 'criaNovoPedido' %}" style="text-decoration: none; color: var(--text);">Novo pedido</a></span>
             </div>
         </div>
         <script>

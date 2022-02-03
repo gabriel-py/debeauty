@@ -1,4 +1,4 @@
-{% extends 'base_logado.html' %}
+{% extends 'pos.html' %}
 {% load static %}
 
 {% block import %}
@@ -70,32 +70,16 @@
             margin-bottom: 5%;
         }
 
-        a {
-            text-decoration: none;
+        .text {
+            font-size: 16pt;
+        }
+        .image_pedido {
+            width: 50%;
+            height: 180px;
         }
     </style>
     <link rel="stylesheet" href="{% static 'css/historico.css' %}">
-{% endblock %}
-
-{% block menu_lateral %}
-    <section id="colum1" class="">
-        <div id="menu_lateral_tela">
-            <div class="menu_lateral_tela_option" id="home_option">
-                <span class="option"><i class="fas fa-home"></i>Home</span>
-            </div>
-            <div class="menu_lateral_tela_option" id="notificacoes_option">
-                <span class="option"><i class="fas fa-bell"></i>Notificações</span>
-            </div>
-            <div class="menu_lateral_tela_option" id="pedidos_option">
-                <span class="option"><i class="fas fa-air-freshener"></i>Pedidos</span>
-            </div>
-            <div class="menu_lateral_tela_option" id="pedidos_option">
-                <span class="option"><i class="fas fa-air-freshener"></i><a href="{% url 'criaNovoPedido' %}">Novo pedido</a></span>
-            </div>
-        </div>
-        <script>
-        </script>
-    </section>
+    <script src="https://kit.fontawesome.com/479f28df58.js" crossorigin="anonymous"></script>
 {% endblock %}
 
 {% block content %}
@@ -103,7 +87,7 @@
         <form id="form_pedido">
 
             <div class="form_pedido_linha" id="data_realizacao_pedido">
-                <span>Data de realização desejada: </span>
+                <span class="text">Data de realização desejada: </span>
                 <input type="date" id="date_picker">
             </div>
 
@@ -112,7 +96,7 @@
             </div>
 
             <div class="form_pedido_linha">
-                <span id="mensagem_retorno"></span>
+                <span id="mensagem_retorno" class="text"></span>
             </div>
 
             <div id="solicitacoes" class="form_pedido_linha some">
@@ -149,8 +133,10 @@
                     <textarea placeholder="Descreva o serviço que você deseja e como deseja!" id="myTextarea" name="conteudo_descricao"></textarea>
                 </div>
                 <div class="campo_form_solicitacao">
-                    <label for="media_solicitacao">Se preferir, envie uma imagem que ilustre o serviço desejado: </label>
+                    <label for="media_solicitacao">Se preferir, envie uma ou mais imagens que ilustrem o serviço desejado: </label>
                     <input type="file" name="media_solicitacao" id="media_solicitacao">
+                    <div class="image-upload" id="image-upload">
+                    </div>
                 </div>
                 <div id="button_save">
                     <button type="button" class="btn btn-primary" id="salva_solicitacao">Salvar</button>
@@ -161,6 +147,24 @@
 {% endblock %}
 
 {% block script %}
+    <script>
+        // PREVIEW FOTO
+        function readImage() {
+            if (this.files && this.files[0]) {
+                var file = new FileReader();
+                file.onload = function(e) {
+                    var oImg = document.createElement("img");
+                    oImg.setAttribute('src', e.target.result);
+                    oImg.classList.add("image_pedido")
+                    document.getElementById("image-upload").appendChild(oImg);
+                };       
+                file.readAsDataURL(this.files[0]);
+            }
+        }
+
+        document.getElementById("media_solicitacao").addEventListener("change", readImage, false);
+    </script>
+
     <script>
         let button_nova_solicitacao = document.getElementById("nova_solicitacao");
         button_nova_solicitacao.addEventListener("click", ()=>{
@@ -186,7 +190,7 @@
                     if(xhr.status == 200) {
                         let resposta = xhr.responseText;
                         resposta = JSON.parse(resposta);
-                        let mensagem = "Seu pedido foi salvo e a ele foi atribuido o código " + resposta["response"] + ". Quando desejar, adicione solicitações a ele clicando abaixo."
+                        let mensagem = "Seu pedido já foi salvo e a ele foi atribuido o código " + resposta["response"] + ". Quando desejar, adicione solicitações clicando abaixo."
                         document.getElementById("mensagem_retorno").innerHTML = mensagem;
                         document.getElementById("data_realizacao_pedido").classList.add("some");
                         document.getElementById("salvar_pedido").classList.add("some");

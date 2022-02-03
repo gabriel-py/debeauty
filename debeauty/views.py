@@ -16,13 +16,21 @@ from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.http import JsonResponse
 from datetime import datetime
 
-def tela_inicial(request, mensagem=None):
+def tela_inicial(request):
     if(request.user.is_authenticated):
         return redirect('telaInicio')
-    return render(request, "index.html", mensagem)
+    Posts = Post.objects.all()
+    if Posts is not None:
+        Posts = reversed(Posts)
+    context = {'posts': Posts}
+    return render(request, "index.html", context)
 
 def tela_cadastro(request):
-    return render(request, "index_cadastro.html")
+    Posts = Post.objects.all()
+    if Posts is not None:
+        Posts = reversed(Posts)
+    context = {'posts': Posts}
+    return render(request, "index_cadastro.html", context)
 
 @login_required(login_url='index')
 def tela_inicial_logado(request):
@@ -30,7 +38,10 @@ def tela_inicial_logado(request):
     usuario_logado = Usuario.objects.get(user=request.user)
     if Posts is not None:
         Posts = reversed(Posts)
-    context = {'posts': Posts, 'usuario': usuario_logado}
+
+    usuarios_sistema = Usuario.objects.all()
+
+    context = {'posts': Posts, 'usuario': usuario_logado, 'usuarios_sistema': usuarios_sistema}
 
     if request.user.groups.filter(name__in=['cliente']):
         return render(request, "pos.html", context)
@@ -54,6 +65,7 @@ def logout_system(request):
     logout(request)
     return redirect('index')
 
+@login_required(login_url='index')
 def cadastro(request):
     if request.method == "POST":
         selection = request.POST.get('selection')
@@ -101,13 +113,14 @@ def cria_novo_post(request):
 @login_required(login_url='index')
 def tela_novo_pedido(request):
     ramos = Ramo.objects.all()
-    context = {'ramos': ramos}
+    usuario_logado = Usuario.objects.get(user=request.user)
+    usuarios_sistema = Usuario.objects.all()
+    context = {'ramos': ramos, 'usuario': usuario_logado, 'usuarios_sistema': usuarios_sistema}
     return render(request, "novo_pedido.html", context)
 
 @login_required(login_url='index')
 def tela_historico(request):
     ColObj = Colaborador.objects.get(user=request.user)
-    print(ColObj)
     try:
         ColObj = Colaborador.objects.get(user=request.user)
     except:
@@ -121,12 +134,12 @@ def tela_historico(request):
         for solicitObj in solicit:
             solicitacoes.append(solicitObj)
 
-    context = {'solicitacoes': solicitacoes}
+    usuarios_sistema = Usuario.objects.all()
+    context = {'solicitacoes': solicitacoes, 'usuarios_sistema': usuarios_sistema}
     return render(request, "historico.html", context=context)
 
 @login_required(login_url='index')
 def salva_pedido(request):
-    print(request.GET["data"])
     cliente = Cliente.objects.filter(user=request.user)[0]
     pedido = Pedido.objects.create(data_realizacao_desejada=request.GET["data"], solicitante=cliente, cod_status=0)
     pedido.save()
@@ -136,11 +149,8 @@ def salva_pedido(request):
 @login_required(login_url='index')
 def salva_solicitacao(request):
     ramo = Ramo.objects.get(id=request.GET["ramo"])
-    print(ramo)
     descricao = request.GET["descricao"]
-    print(request.GET["id_pedido"])
     pedido = Pedido.objects.get(id=request.GET["id_pedido"])
-    print(pedido)
     media = request.GET["media"]
     data_pedido = datetime.today().strftime('%Y-%m-%d')
 

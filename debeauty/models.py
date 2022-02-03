@@ -8,7 +8,7 @@ class Media(models.Model):
         return "{}".format(self.id)
 
 class Usuario(models.Model):
-    profile_photo = models.ImageField(default='profile.jpeg')
+    profile_photo = models.ImageField(default='media/profile.png')
     user = models.OneToOneField(User, on_delete=models.CASCADE, unique=True)
 
     def __str__(self):

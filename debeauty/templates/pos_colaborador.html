@@ -5,19 +5,25 @@
 {% block import %}
     <link rel="stylesheet" href="{% static 'css/pos_colaborador.css' %}">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <style type="text/css">
+        .image_pedido {
+            width: 50%;
+            height: 200px;
+        }
+    </style>
 {% endblock %}
 
 {% block menu_lateral %}
     <section id="colum1" class="">
         <div id="menu_lateral_tela">
             <div class="menu_lateral_tela_option" id="home_option">
-                <span class="option"><i class="fas fa-home"></i>Home</span>
+                <span class="option"><i class="fas fa-home"></i><a href="{% url 'telaInicio' %}" style="text-decoration: none; color: var(--text);">Home</a></span>
             </div>
             <div class="menu_lateral_tela_option" id="notificacoes_option">
                 <span class="option"><i class="fas fa-bell"></i>Notificações</span>
             </div>
             <div class="menu_lateral_tela_option" id="pedidos_option">
-                <span class="option"><i class="fas fa-air-freshener"></i>Pedidos</span>
+                <span class="option"><i class="fas fa-air-freshener"></i><a href="{% url 'historico' %}" style="text-decoration: none; color: var(--text);">Pedidos</a></span>
             </div>
         </div>
     </section>
@@ -25,24 +31,45 @@
 
 {% block novo_post %}
     <div id="create_new_post">
-        <img src="{{ usuario.profile_photo.url }}" class="profile_photo">
+        <img src="{{ usuario.profile_photo }}" class="profile_photo">
         <section id="new_post_body">
             <form action="{% url 'criaNovoPost' %}" method="POST">
                 {% csrf_token %}
                 <textarea placeholder="Crie um novo post!" id="myTextarea" name="conteudo"></textarea>
                 <div id="medias">
-                    <!-- <img src="https://i.pinimg.com/originals/9f/81/e5/9f81e53f576cc88192006f7b32907f58.jpg" class="media new_post_media">
-                    <img src="https://i.pinimg.com/originals/9f/81/e5/9f81e53f576cc88192006f7b32907f58.jpg" class="media new_post_media"> -->
+                    <div class="image-upload" id="image-upload">
+                    </div>
                 </div>
                 <div id="new_post_options">
                     <div id="includes">
                         <i class="fas fa-plus fa-2x"></i>
                         <i class="fas fa-map-marker-alt fa-2x"></i>
-                        <i class="far fa-images fa-2x"></i>
+                        <label for="media_solicitacao"><i class="far fa-images fa-2x"></i></label>
+                        <input type="file" name="media_solicitacao" id="media_solicitacao" style="display: none;">
                     </div>
                     <input type="submit" value="Postar" id="btn">
                 </div>
             </form>
         </section>
     </div>
+{% endblock %}
+
+{% block script %}
+    <script>
+        // PREVIEW FOTO
+        function readImage() {
+            if (this.files && this.files[0]) {
+                var file = new FileReader();
+                file.onload = function(e) {
+                    var oImg = document.createElement("img");
+                    oImg.setAttribute('src', e.target.result);
+                    oImg.classList.add("image_pedido")
+                    document.getElementById("image-upload").appendChild(oImg);
+                };       
+                file.readAsDataURL(this.files[0]);
+            }
+        }
+
+        document.getElementById("media_solicitacao").addEventListener("change", readImage, false);
+    </script>
 {% endblock %}
